@@ -289,7 +289,7 @@
         }
 
         try {
-            const res = await fetch(`http://127.0.0.1:5000/api/course_detail?id=${courseId}`);
+            const res = await fetch(`https://zzcc-api.onrender.com/api/course_detail?id=${courseId}`);
             const data = await res.json();
 
             if (data.error) throw new Error(data.error);
