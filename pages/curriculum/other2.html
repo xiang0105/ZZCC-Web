@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公務人員研習課程 - 分類瀏覽</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <style>
+        /* --- 基礎設定 --- */
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #00509e;
+            --white: #ffffff;
+            --bg-color: #f4f7fa;
+            --accordion-bg: #ffffff;
+            --accordion-hover: #e6f0fa;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--primary-blue);
+            padding: 1.5rem 2rem;
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; }
+
+        /* --- 容器 --- */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+        }
+
+        /* --- 工具列容器 --- */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* --- 提示區塊 (字體加大) --- */
+        .notice {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            font-size: 1.2rem; /* 修改這裡：加大字體 */
+            font-weight: bold;
+            line-height: 1.5;
+            flex: 1; /* 自動佔據剩餘空間 */
+            min-width: 250px;
+        }
+
+        /* --- 字體大小調整工具 --- */
+        .font-controls {
+            display: flex;
+            gap: 5px;
+            background-color: #f0f0f0;
+            padding: 5px;
+            border-radius: 20px;
+            align-items: center;
+            border: none; 
+            box-shadow: none; 
+        }
+
+        .font-btn {
+            border: none;
+            background: none;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 15px;
+            color: #555;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .font-btn:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+        .font-btn.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* --- 搜尋區塊 --- */
+        .search-container {
+            width: 220px;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 8px 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1rem;
+            background: transparent;
+            margin-left: 8px;
+        }
+
+        .search-icon {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 80, 158, 0.1);
+        }
+
+        /* --- 摺疊選單容器 --- */
+        #accordionContainer {
+            font-size: 18px; /* 預設字體大小 */
+            transition: font-size 0.2s ease;
+        }
+
+        /* --- 摺疊選單樣式 --- */
+        .accordion-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden; 
+            border: 1px solid #eee;
+        }
+
+        .accordion-header {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            cursor: pointer;
+            padding: 18px 25px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 1.25em; 
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--accordion-hover);
+        }
+
+        .accordion-header.active {
+            background-color: var(--secondary-blue);
+            color: white;
+        }
+
+        .accordion-header::after {
+            content: '▼'; 
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-header.active::after {
+            content: '▲';
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fff;
+        }
+
+        .course-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .course-item {
+            padding: 15px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .course-item:last-child {
+            border-bottom: none;
+        }
+
+        .course-info {
+            flex-grow: 1;
+        }
+
+        .course-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .course-details {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .course-id-tag {
+            background-color: #eee;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        /* --- 懸浮按鈕 (回上一頁) --- */
+        .fab-back { 
+            position: fixed; bottom: 30px; right: 30px; 
+            width: 60px; height: 60px; 
+            background-color: var(--primary-blue); color: white; 
+            border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; 
+            text-decoration: none; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            font-size: 30px; 
+            transition: all 0.3s ease; 
+            z-index: 2000; 
+            border: 2px solid white; 
+        }
+        .fab-back:hover { 
+            background-color: var(--secondary-blue); 
+            transform: translateY(-5px); 
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>公務人員研習課程列表</h1>
+    </header>
+
+    <div class="container">
+        <!-- 工具列 -->
+        <div class="toolbar">
+            <!-- 提示訊息 -->
+            <div class="notice">
+                ⚠️ <strong>注意：</strong> 點擊下方星期即可展開。學習時數登錄請至 <a href="https://www.zzcc.tp.edu.tw/data/%E5%85%AC%E5%8B%99%E4%BA%BA%E5%93%A1%E7%A0%94%E7%BF%92.asp" target="_blank">社大官網</a>。
+            </div>
+            
+            <!-- 字體大小調整 -->
+            <div class="font-controls">
+                <span class="font-label">字體：</span>
+                <button class="font-btn" onclick="setFontSize('14px', this)">小</button>
+                <button class="font-btn active" onclick="setFontSize('16px', this)">中</button>
+                <button class="font-btn" onclick="setFontSize('20px', this)">大</button>
+                <button class="font-btn" onclick="setFontSize('24px', this)">特大</button>
+            </div>
+
+            <!-- 搜尋框 -->
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="搜尋課程/代碼/講師...">
+            </div>
+        </div>
+
+        <div id="loading" class="loading">正在讀取並整理資料...</div>
+        <!-- 摺疊容器：字體調整作用於此 -->
+        <div id="accordionContainer"></div>
+    </div>
+
+    <!-- 連結回上頁 other.html -->
+    <a href="./other.html" class="fab-back" title="回首頁">↩️</a>
+
+    <script>
+        const container = document.getElementById('accordionContainer');
+        const loading = document.getElementById('loading');
+        const searchInput = document.getElementById('searchInput');
+
+        const dayOrder = ['週一', '週二', '週三', '週四', '週五', '週六', '週日'];
+        let allCoursesData = []; 
+
+        // --- 字體大小切換函式 ---
+        function setFontSize(size, btn) {
+            // 設定摺疊容器的基準字體大小
+            container.style.fontSize = size;
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.font-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        async function fetchData() {
+            try {
+                const res = await fetch('http://127.0.0.1:5000/api/public_servant_courses');
+                const data = await res.json();
+
+                if (data.error) {
+                    loading.innerHTML = `<span style="color:red">讀取失敗：${data.error}</span>`;
+                    return;
+                }
+
+                allCoursesData = data; 
+                loading.style.display = 'none';
+                processAndRender(allCoursesData, false); 
+
+            } catch (err) {
+                loading.innerHTML = `<span style="color:red">無法連線伺服器，請確認 app.py 已啟動且包含 public_servant_courses API。</span>`;
+                console.error(err);
+            }
+        }
+
+        function processAndRender(courses, autoExpand) {
+            container.innerHTML = ''; 
+
+            if (courses.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666; padding:20px;">找不到符合的課程</p>';
+                return;
+            }
+
+            const groupedData = courses.reduce((acc, curr) => {
+                const day = curr.week; 
+                if (!acc[day]) acc[day] = [];
+                acc[day].push(curr);
+                return acc;
+            }, {});
+
+            dayOrder.forEach(day => {
+                if (groupedData[day]) {
+                    createAccordionItem(day, groupedData[day], autoExpand);
+                }
+            });
+        }
+
+        function createAccordionItem(day, courses, autoExpand) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'accordion-item';
+
+            const headerBtn = document.createElement('button');
+            headerBtn.className = 'accordion-header';
+            if (autoExpand) headerBtn.classList.add('active');
+            
+            headerBtn.innerHTML = `${day} <span style="font-size:0.9em; font-weight:normal;">(${courses.length} 堂課)</span>`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'accordion-content';
+
+            let listHtml = '<ul class="course-list">';
+            courses.forEach(c => {
+                listHtml += `
+                    <li class="course-item">
+                        <div class="course-info">
+                            <span class="course-name">${c.name}</span>
+                            <span class="course-details">講師：${c.teacher}</span>
+                        </div>
+                        <span class="course-id-tag">${c.id}</span>
+                    </li>
+                `;
+            });
+            listHtml += '</ul>';
+            contentDiv.innerHTML = listHtml;
+
+            if (autoExpand) {
+                setTimeout(() => {
+                    contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
+                }, 0);
+            }
+
+            headerBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                if (contentDiv.style.maxHeight) {
+                    contentDiv.style.maxHeight = null;
+                } else {
+                    contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
+                }
+            });
+
+            itemDiv.appendChild(headerBtn);
+            itemDiv.appendChild(contentDiv);
+            container.appendChild(itemDiv);
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.trim().toLowerCase();
+
+            if (keyword === '') {
+                processAndRender(allCoursesData, false);
+            } else {
+                const filtered = allCoursesData.filter(c => 
+                    c.name.toLowerCase().includes(keyword) ||
+                    c.teacher.toLowerCase().includes(keyword) ||
+                    c.id.toLowerCase().includes(keyword)
+                );
+                processAndRender(filtered, true);
+            }
+        });
+
+        fetchData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">中正社區大學週報</title> 
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/x-icon" href="../../images/logo.ico">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">中正社區大學</div>
+            <nav>
+                <div class="dropdown">
+                    <button class="nav-btn-accent dropdown-toggle" id="formDropdownToggle" title="點擊開啟教師與學員常用表格下載選單" aria-expanded="false">
+                        表格下載 
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="formDropdownMenu">
+                        </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                
+                <h1 id="reportH1">
+                    <div class="report-switcher" id="reportSwitcher">
+                        <a href="?type=teacher" class="report-tab" id="teacherTab">教師週報</a>
+                        <span class="separator"> / </span>
+                        <a href="?type=student" class="report-tab" id="studentTab">學員週報</a>
+                    </div>
+                </h1>
+                
+                <p id="reportP"></p>
+            </div>
+        </section>
+
+        <section class="info-highlights">
+            <div class="container">
+                <div class="term-badge">
+                    <i class="fas fa-calendar-alt"></i> 114年第二學期
+                </div>
+                
+                <a href="教師/教師須知.pdf" class="notice-card notice-pdf" id="noticeCard">
+                    <div class="notice-content">
+                        <h2 id="noticeTitle">教師須知</h2>
+                        <p id="noticeDescription">點擊開啟 114-2 期教師須知 PDF 檔案</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="weekly-reports">
+            <div class="container">
+                <h2>週報內容 (共 18 週)</h2>
+                <div class="report-grid" id="weeklyReportGrid"> 
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>臺北市中正社區大學 ‧ 100 臺北市中正區濟南路一段六號</p>
+            <p>服務專線：(02)2327-8441 | 中正社大資訊組 編製</p>
+            <p>&copy; 2025 中正社區大學版權所有</p>
+        </div>
+    </footer>
+
+    <a href="../../index.html" id="homeFixedBtn" class="fixed-action-btn" title="回首頁">
+        <i class="fas fa-home home-icon"></i>
+        <span class="home-text">Home</span>
+    </a>
+    
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+</html>

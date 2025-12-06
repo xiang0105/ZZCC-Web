@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課程查詢</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <style>
+        /* --- 基礎設定與配色 --- */
+        :root {
+            --primary-blue: #003366;    /* 主色：深藍 */
+            --secondary-blue: #00509e;  /* 次色：亮藍 */
+            --accent-bg: #e6f0fa;       /* 裝飾背景：極淺藍 */
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --border-radius: 8px;
+            --heart-color: #e83e8c;     /* 愛心顏色 */
+            --btn-green: #28a745;       /* 下載按鈕綠色 */
+            --btn-green-hover: #218838;
+            --btn-orange: #fd7e14;      /* 新生按鈕橘色 */
+            --btn-orange-hover: #e36d0d;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+        }
+
+        /* --- 頂部篩選區 (Header) --- */
+        header {
+            background-color: var(--primary-blue);
+            padding: 1.2rem 2rem;
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px; 
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            margin-right: auto; 
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        input#searchInput {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+            outline: none;
+            width: 180px;
+        }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* 篩選按鈕 */
+        button#confirmBtn {
+            background-color: var(--secondary-blue);
+            color: var(--white);
+        }
+        button#confirmBtn:hover {
+            background-color: #0066cc;
+            transform: translateY(-1px);
+        }
+
+        /* 收藏篩選按鈕 */
+        button#favFilterBtn {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        button#favFilterBtn.active {
+            background-color: var(--heart-color);
+            border-color: var(--heart-color);
+            color: white;
+        }
+        button#favFilterBtn:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        /* --- 下載按鈕樣式 --- */
+        .btn-download {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none; /* 去除超連結底線 */
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
+            background-color: var(--btn-green); 
+            color: var(--white);
+            font-size: 0.9rem;
+            line-height: normal;
+        }
+
+        .btn-download:hover {
+            background-color: var(--btn-green-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* 新生按鈕特別樣式 (橘色) */
+        .btn-download.new {
+            background-color: var(--btn-orange);
+        }
+        .btn-download.new:hover {
+            background-color: var(--btn-orange-hover);
+        }
+
+        /* --- 課程卡片區 (Grid) --- */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-blue);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin: 0 0 12px 0;
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            line-height: 1.4;
+            padding-right: 20px;
+        }
+
+        .card .info {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .card .status {
+            margin-top: auto;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-top: 15px;
+        }
+
+        .status.full { background-color: #ffebee; color: #d32f2f; }
+        .status.open { background-color: #e8f5e9; color: #2e7d32; }
+        .status.limited { background-color: #fff3e0; color: #ef6c00; }
+
+        /* 愛心按鈕樣式 */
+        .heart-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            z-index: 10;
+        }
+        .heart-btn:hover {
+            transform: scale(1.2);
+        }
+        .heart-btn.active {
+            color: var(--heart-color);
+        }
+
+        /* Modal 樣式 */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); z-index: 1000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background-color: var(--white); width: 90%; max-width: 600px; max-height: 90vh; border-radius: 12px; display: flex; flex-direction: column; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 15px 40px rgba(0,0,0,0.25); }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-header { background-color: var(--primary-blue); color: white; padding: 20px 30px; border-top-left-radius: 12px; border-top-right-radius: 12px; position: relative; flex-shrink: 0; }
+        .modal-title { margin: 0; font-size: 1.5rem; font-weight: bold; padding-right: 30px; }
+        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 1.8rem; line-height: 1; cursor: pointer; color: rgba(255,255,255,0.7); transition: color 0.2s; }
+        .close-btn:hover { color: white; }
+        .modal-body { padding: 30px; overflow-y: auto; flex-grow: 1; }
+        .modal-info-grid { display: grid; grid-template-columns: 1fr; gap: 15px; background-color: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .modal-info-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .modal-info-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .modal-info-item span.label { font-size: 0.95rem; color: #666; font-weight: bold; }
+        .modal-info-item span.value { font-weight: 500; font-size: 1.05rem; color: var(--text-dark); text-align: right; }
+        .modal-footer { padding: 20px 30px; border-top: 1px solid #eee; background-color: #fff; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; text-align: center; flex-shrink: 0; }
+        .btn-external { display: inline-flex; align-items: center; justify-content: center; padding: 12px 30px; background-color: var(--primary-blue); color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 1rem; transition: background 0.2s, transform 0.1s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; }
+        .btn-external:hover { background-color: var(--secondary-blue); transform: translateY(-2px); }
+        
+        /* 右下角懸浮按鈕 (回主頁) */
+        .fab-home { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: var(--primary-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-size: 30px; transition: all 0.3s ease; z-index: 2000; border: 2px solid white; }
+        .fab-home:hover { background-color: var(--secondary-blue); transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        .fab-home::after { content: "回主頁"; position: absolute; bottom: 70px; right: 50%; transform: translateX(50%); background-color: #333; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .fab-home:hover::after { opacity: 1; }
+
+        /* --- 新增：其他功能按鈕 (位於回主頁上方) --- */
+        .fab-other { 
+            position: fixed; 
+            bottom: 120px; /* 30px(base) + 60px(home) + 30px(gap) = 120px */
+            right: 30px; 
+            width: 60px; 
+            height: 60px; 
+            background-color: var(--primary-blue); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            text-decoration: none; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            font-size: 18px; /* 字體稍微調小一點點，因為是中文兩個字 */
+            font-weight: bold;
+            transition: all 0.3s ease; 
+            z-index: 2000; 
+            border: 2px solid white; 
+        }
+        
+        .fab-other:hover { 
+            background-color: var(--secondary-blue); 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
+        }
+        
+        /* 提示文字 */
+        .fab-other::after { 
+            content: "其他連結"; 
+            position: absolute; 
+            right: 70px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            background-color: #333; 
+            color: white; 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            font-size: 12px; 
+            white-space: nowrap; 
+            opacity: 0; 
+            transition: opacity 0.3s; 
+            pointer-events: none; 
+        }
+        .fab-other:hover::after { opacity: 1; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="filter-container">
+        <h1>中正社大課程</h1>
+        
+        <input type="text" id="searchInput" placeholder="搜尋課程或講師...">
+
+        <select id="daySelect">
+            <option value="all">所有星期</option>
+            <option value="週一">週一</option>
+            <option value="週二">週二</option>
+            <option value="週三">週三</option>
+            <option value="週四">週四</option>
+            <option value="週五">週五</option>
+            <option value="週六">週六</option>
+        </select>
+
+        <select id="statusSelect">
+            <option value="all">所有狀態</option>
+            <option value="招生中">招生中</option>
+            <option value="額滿">額滿</option>
+            <option value="尚餘名額">尚餘名額</option>
+        </select>
+
+        <button id="favFilterBtn">❤️ 只看收藏</button>
+
+        <button id="confirmBtn">篩選</button>
+
+        <a href="https://www.zzcc.tp.edu.tw/download/%E5%A0%B1%E5%90%8D%E8%A1%A8/114-2%E8%88%8A%E7%94%9F%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf" target="_blank" class="btn-download" title="下載舊生報名表">
+            📥 舊生報名
+        </a>
+
+        <a href="https://www.zzcc.tp.edu.tw/download/%E5%A0%B1%E5%90%8D%E8%A1%A8/114-2%E6%96%B0%E7%94%9F%E5%A0%B1%E5%90%8D%E8%A1%A8.pdf" target="_blank" class="btn-download new" title="下載新生報名表">
+            📥 新生報名
+        </a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="course-grid" id="courseContainer">
+        </div>
+</div>
+
+<a href="../../index.html" class="fab-home" title="回主頁">🏠</a>
+
+<a href="./other.html" target="_blank" class="fab-other" title="其他功能">其他</a>
+
+<div id="courseModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">課程標題</div>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="modal-info-grid">
+                <div class="modal-info-item"><span class="label">講師</span><span class="value" id="modalTeacher"></span></div>
+                <div class="modal-info-item"><span class="label">時間</span><span class="value" id="modalTime"></span></div>
+                <div class="modal-info-item"><span class="label">編號</span><span class="value" id="modalId"></span></div>
+                <div class="modal-info-item"><span class="label">費用</span><span class="value" id="modalFee"></span></div>
+                <div class="modal-info-item"><span class="label">狀態</span><span class="value" id="modalStatus"></span></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" id="modalLink" target="_blank" class="btn-external">查看完整課程大綱 (另開視窗) ↗</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const container = document.getElementById('courseContainer');
+    const daySelect = document.getElementById('daySelect');
+    const statusSelect = document.getElementById('statusSelect');
+    const searchInput = document.getElementById('searchInput');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const favFilterBtn = document.getElementById('favFilterBtn');
+    
+    // Modal Elements
+    const modal = document.getElementById('courseModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTeacher = document.getElementById('modalTeacher');
+    const modalTime = document.getElementById('modalTime');
+    const modalId = document.getElementById('modalId');
+    const modalFee = document.getElementById('modalFee');
+    const modalStatus = document.getElementById('modalStatus');
+    const modalLink = document.getElementById('modalLink');
+
+    let globalCoursesData = [];
+    let showFavoritesOnly = false; // 收藏過濾模式開關
+
+    // --- 1. 收藏功能 ---
+    function getFavorites() {
+        const stored = localStorage.getItem('myCourseFavorites');
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    function toggleFavorite(event, courseId) {
+        event.stopPropagation(); // 阻止卡片點擊
+        
+        let favorites = getFavorites();
+        if (favorites.includes(courseId)) {
+            favorites = favorites.filter(id => id !== courseId); // 移除
+        } else {
+            favorites.push(courseId); // 加入
+        }
+        
+        localStorage.setItem('myCourseFavorites', JSON.stringify(favorites));
+        filterCourses(); // 重新渲染以更新圖示
+    }
+
+    // --- 2. 讀取資料 ---
+    async function fetchCourses() {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 20px;">正在讀取課程資料...</p>';
+        try {
+            // 請確認這是你的後端 API 網址
+            const response = await fetch('http://127.0.0.1:5000/api/courses');
+            const data = await response.json();
+            
+            if (data.error) {
+                container.innerHTML = '<p style="text-align:center; color:red">後端錯誤：' + data.error + '</p>';
+                return;
+            }
+
+            globalCoursesData = data;
+            renderCourses(globalCoursesData);
+
+        } catch (error) {
+            container.innerHTML = '<p style="text-align:center; color:red">無法連線伺服器，請確認 Python app.py 是否已啟動。</p>';
+            console.error(error);
+        }
+    }
+
+    // --- 3. 渲染課程卡片 ---
+    function renderCourses(data) {
+        container.innerHTML = '';
+        const favorites = getFavorites();
+
+        if (data.length === 0) {
+            container.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#666;">無符合條件的課程</p>';
+            return;
+        }
+
+        data.forEach(course => {
+            let statusClass = 'open';
+            if (course.status.includes('額滿')) statusClass = 'full';
+            else if (course.status.includes('尚餘') || course.status.includes('名')) statusClass = 'limited';
+            
+            const displayTime = course.time.replace('起', '');
+
+            // 判斷收藏狀態
+            const isFav = favorites.includes(course.id);
+            const heartClass = isFav ? 'active' : '';
+            const heartIcon = isFav ? '❤️' : '🤍';
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => openModal(course.id);
+
+            card.innerHTML = `
+                <div class="heart-btn ${heartClass}" onclick="toggleFavorite(event, '${course.id}')">
+                    ${heartIcon}
+                </div>
+                <h3>${course.name}</h3>
+                <div class="info">講師：${course.teacher}</div>
+                <div class="info">時間：${course.day} ${displayTime}</div>
+                <div class="info">編號：${course.id}</div>
+                <div class="status ${statusClass}">${course.status}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // --- 4. 篩選邏輯 ---
+    function filterCourses() {
+        const selectedDay = daySelect.value;
+        const selectedStatus = statusSelect.value;
+        const keyword = searchInput.value.trim().toLowerCase();
+        const favorites = getFavorites();
+
+        const filtered = globalCoursesData.filter(course => {
+            // 星期
+            const matchDay = selectedDay === 'all' || course.day === selectedDay;
+            
+            // 狀態
+            let matchStatus = false;
+            if (selectedStatus === 'all') matchStatus = true;
+            else if (selectedStatus === '尚餘名額') matchStatus = course.status.includes('尚餘');
+            else if (selectedStatus === '額滿') matchStatus = course.status.includes('額滿');
+            else matchStatus = course.status.includes('招生中');
+
+            // 關鍵字
+            const matchKeyword = course.name.toLowerCase().includes(keyword) || 
+                                 course.teacher.toLowerCase().includes(keyword);
+
+            // 收藏
+            const matchFav = showFavoritesOnly ? favorites.includes(course.id) : true;
+
+            return matchDay && matchStatus && matchKeyword && matchFav;
+        });
+        renderCourses(filtered);
+    }
+
+    // 收藏過濾按鈕事件
+    favFilterBtn.addEventListener('click', () => {
+        showFavoritesOnly = !showFavoritesOnly;
+        if (showFavoritesOnly) {
+            favFilterBtn.classList.add('active');
+            favFilterBtn.textContent = '❤️ 顯示全部';
+        } else {
+            favFilterBtn.classList.remove('active');
+            favFilterBtn.textContent = '❤️ 只看收藏';
+        }
+        filterCourses();
+    });
+
+    // --- 5. Modal 控制 ---
+    function openModal(courseId) {
+        const course = globalCoursesData.find(c => c.id === courseId);
+        if (!course) return;
+
+        modalTitle.textContent = course.name;
+        modalTeacher.textContent = course.teacher;
+        modalTime.textContent = `${course.day} ${course.time.replace('起', '')}`;
+        modalId.textContent = course.id;
+        modalFee.textContent = course.fee;
+        modalStatus.textContent = course.status;
+
+        // 連到詳細大綱頁面
+        modalLink.href = `course_detail.html?id=${course.id}&title=${encodeURIComponent(course.name)}`;
+
+        modal.classList.add('active');
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+    }
+
+    // 監聽事件
+    confirmBtn.addEventListener('click', filterCourses);
+    searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') filterCourses(); });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+    // 初始化
+    fetchCourses();
+
+</script>
+
+</body>
+</html>

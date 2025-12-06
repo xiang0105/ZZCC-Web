@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選課須知與報名辦法 - 中正社大</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <style>
+        /* --- 基礎設定 --- */
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #00509e;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --bg-color: #f4f7fa;
+            --btn-sidebar: #17a2b8; 
+            --btn-sidebar-hover: #138496;
+            --btn-cert: #ffc107; /* 認證中心按鈕顏色 (黃色) */
+            --btn-cert-hover: #e0a800;
+            --btn-waiting: #28a745; /* 登記候補按鈕顏色 (綠色) */
+            --btn-waiting-hover: #218838;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+        }
+
+        /* --- 頂部標題 --- */
+        header {
+            background-color: var(--primary-blue);
+            padding: 1.5rem 2rem;
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* --- 主要佈局容器 --- */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* --- 左側邊欄 --- */
+        .sidebar {
+            width: 280px; /* 保持加寬的寬度 */
+            flex-shrink: 0;
+            position: sticky;
+            top: 100px;
+        }
+
+        /* 側邊欄按鈕共用樣式 */
+        .btn-sidebar {
+            display: block;
+            width: 100%;
+            padding: 25px 10px;
+            background-color: var(--btn-sidebar);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem; 
+            white-space: nowrap;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .btn-sidebar:hover {
+            background-color: var(--btn-sidebar-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        /* 認證中心按鈕特別樣式 */
+        .btn-sidebar.cert-btn {
+            background-color: var(--btn-cert);
+            color: #333; /* 黃底配深色字比較清楚 */
+        }
+
+        .btn-sidebar.cert-btn:hover {
+            background-color: var(--btn-cert-hover);
+        }
+
+        /* 登記候補按鈕特別樣式 */
+        .btn-sidebar.waiting-btn {
+            background-color: var(--btn-waiting);
+            color: white;
+        }
+
+        .btn-sidebar.waiting-btn:hover {
+            background-color: var(--btn-waiting-hover);
+        }
+
+        /* --- 右側內容區 --- */
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .image-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: zoom-in; 
+            background-color: white;
+        }
+
+        .info-img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 850px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-bottom: 20px; }
+            .image-row { grid-template-columns: 1fr; }
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 60px;
+            grid-column: 1 / -1;
+        }
+
+        /* --- 懸浮按鈕 (回主頁) - 加大版 --- */
+        .fab-home { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            /* 尺寸加大 */
+            width: 80px; 
+            height: 80px; 
+            background-color: var(--primary-blue); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            text-decoration: none; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); 
+            /* 字體加大 */
+            font-size: 40px; 
+            transition: all 0.3s ease; 
+            z-index: 2000; 
+            border: 3px solid white; /* 邊框稍微加粗 */
+        }
+        .fab-home:hover { 
+            background-color: var(--secondary-blue); 
+            transform: translateY(-5px) scale(1.1); /* 懸停時稍微放大 */
+        }
+        .fab-home::after { 
+            content: "回主頁"; 
+            position: absolute; 
+            bottom: 90px; /* 配合按鈕高度調整位置 */
+            right: 50%; 
+            transform: translateX(50%); 
+            background-color: #333; 
+            color: white; 
+            padding: 6px 12px; 
+            border-radius: 5px; 
+            font-size: 14px; 
+            white-space: nowrap; 
+            opacity: 0; 
+            transition: opacity 0.3s; 
+            pointer-events: none; 
+        }
+        .fab-home:hover::after { opacity: 1; }
+
+        /* --- 圖片放大 Lightbox --- */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 3000; display: none; 
+            justify-content: center; align-items: flex-start;
+            overflow-y: auto; padding: 50px 0;
+            opacity: 0; transition: opacity 0.3s ease;
+            box-sizing: border-box;
+        }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img {
+            width: 96%; max-width: 1000px; height: auto;
+            border-radius: 5px; box-shadow: 0 5px 30px rgba(0,0,0,0.5); margin: auto;
+        }
+        .lightbox-close {
+            position: fixed; top: 20px; right: 30px;
+            color: white; font-size: 40px; cursor: pointer;
+            z-index: 3001; background-color: rgba(0,0,0,0.5);
+            width: 50px; height: 50px; line-height: 50px; text-align: center; border-radius: 50%;
+        }
+        
+        .lightbox-close:hover {
+            color: #ddd;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>選課須知與報名辦法</h1>
+    </header>
+
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <!-- 公務員研習證明按鈕 -->
+            <a href="./other2.html" class="btn-sidebar">
+                📑 公務員研習證明
+            </a>
+
+            <!-- 認證中心按鈕 -->
+            <a href="https://www.nepac.org.tw/" target="_blank" class="btn-sidebar cert-btn">
+                🏅 認證中心
+            </a>
+
+            <!-- 登記候補按鈕 -->
+            <a href="https://www.zzcc.tp.edu.tw/await/await.asp" target="_blank" class="btn-sidebar waiting-btn">
+                📝 登記候補
+            </a>
+        </aside>
+
+        <main class="content-area">
+            <div class="image-row">
+                <img src="./images/01.jpg" alt="選課須知" class="info-img" onclick="openLightbox(this.src)">
+                <img src="./images/03.jpg" alt="課業費折扣優惠資訊" class="info-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="image-row">
+                <img src="./images/02.jpg" alt="加退選辦法" class="info-img" onclick="openLightbox(this.src)">
+                <img src="./images/04.jpg" alt="課程退選規定" class="info-img" onclick="openLightbox(this.src)">
+            </div>
+            <div class="footer-note">
+                ※ 點擊圖片可放大檢視 (放大後可上下捲動)<br>
+                ※ 以上資訊依中正社區大學官方公告為準
+            </div>
+        </main>
+    </div>
+
+    <!-- 回主頁按鈕 (已加大) -->
+    <a href="./index.html" class="fab-home" title="回主頁">🏠</a>
+
+    <!-- 圖片放大 Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="">
+    </div>
+
+    <script>
+        // --- 圖片放大功能 ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.lightbox-close');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox(event) {
+            if (event.target === lightbox || event.target === closeBtn) {
+                lightbox.classList.remove('active');
+            }
+        }
+    </script>
+
+</body>
+</html>

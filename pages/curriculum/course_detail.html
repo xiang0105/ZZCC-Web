@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課程詳細大綱</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #00509e;
+            --accent-bg: #e6f0fa;       /* 標題背景色 */
+            --label-bg: #f0f7ff;        /* 欄位名稱背景色 */
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --border-color: #cce0f5;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        /* 頂部導航列 */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .back-link {
+            color: #666;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.3rem; /* 加大 */
+            transition: color 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-link:hover { 
+            color: #d32f2f; 
+        }
+
+        /* --- 新增：字體大小調整工具 --- */
+        .font-controls {
+            display: flex;
+            gap: 5px;
+            background-color: #f0f0f0;
+            padding: 5px;
+            border-radius: 20px;
+            align-items: center;
+        }
+
+        .font-btn {
+            border: none;
+            background: none;
+            padding: 6px 14px; /* 加大點擊範圍 */
+            cursor: pointer;
+            font-size: 1rem;   /* 加大按鈕文字 */
+            border-radius: 15px;
+            color: #555;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .font-btn:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+        .font-btn.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* 標題 */
+        h1 {
+            color: var(--primary-blue);
+            font-size: 2.2rem; /* 加大主標題 */
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-blue);
+            padding-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.4rem; /* 加大 */
+            color: var(--text-gray);
+            padding: 50px;
+        }
+
+        /* --- 內容區塊 (預設字體大小調整為 18px) --- */
+        #contentArea {
+            font-size: 18px; /* 預設加大 */
+            transition: font-size 0.2s ease; /* 平滑縮放效果 */
+        }
+
+        /* --- 詳細資訊大表格樣式 --- */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-table th {
+            background-color: var(--label-bg);
+            color: var(--primary-blue);
+            padding: 18px 15px; /* 增加內距 */
+            text-align: left;
+            white-space: nowrap;
+            width: 140px; /*稍微加寬 */
+            font-weight: bold;
+            vertical-align: top;
+            border-right: 1px solid var(--border-color);
+            font-size: 1em; /* 跟隨父層 */
+        }
+
+        .info-table td {
+            padding: 18px 15px; /* 增加內距 */
+            color: #444;
+            vertical-align: top;
+            white-space: pre-line;
+            font-size: 1em; /* 跟隨父層 */
+            line-height: 1.8; /* 增加行高 */
+        }
+
+        /* --- 標題區塊 --- */
+        h3.section-title {
+            color: var(--primary-blue);
+            font-size: 1.5em; /* 加大區塊標題 */
+            margin: 35px 0 20px 0;
+            padding-left: 12px;
+            border-left: 6px solid var(--secondary-blue);
+        }
+
+        /* --- 課表樣式 --- */
+        .syllabus-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .syllabus-table th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.1em; /* 課表標題稍微大一點 */
+        }
+
+        .syllabus-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+
+        .syllabus-table tr:last-child td { border-bottom: none; }
+        .syllabus-table tr:nth-child(even) { background-color: #fcfcfc; }
+
+        .week-col {
+            width: 90px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--secondary-blue);
+            background-color: #fafbfd;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .topic-text {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+            color: #222;
+            font-size: 1.1em; /* 主題字體加大 */
+        }
+        
+        .desc-text {
+            color: #666;
+            font-size: 0.95em; 
+        }
+
+        .error-msg {
+            color: #d32f2f;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffebee;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+
+        /* RWD */
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; }
+            .info-table, .syllabus-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .info-table td, .syllabus-table td {
+                white-space: normal; 
+                min-width: 180px; /* 調整手機版表格最小寬度 */
+            }
+            h1 { font-size: 1.8rem; }
+            .back-link { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 頂部導航列：包含關閉按鈕與字體工具 -->
+    <div class="top-nav">
+        <a href="javascript:window.close();" class="back-link">
+            <span>×</span> 關閉視窗
+        </a>
+
+        <!-- 字體大小調整工具 -->
+        <div class="font-controls">
+            <span style="font-size: 1rem; color:#666; padding: 5px;">字體：</span>
+            <button class="font-btn" onclick="setFontSize('16px', this)">小</button>
+            <button class="font-btn active" onclick="setFontSize('18px', this)">中</button>
+            <button class="font-btn" onclick="setFontSize('22px', this)">大</button>
+            <button class="font-btn" onclick="setFontSize('26px', this)">特大</button>
+        </div>
+    </div>
+    
+    <h1 id="pageTitle">載入中...</h1>
+    
+    <div id="contentArea">
+        <div class="loading">正在讀取詳細資料...</div>
+    </div>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('id');
+    const courseTitle = params.get('title');
+
+    if (courseTitle) {
+        document.getElementById('pageTitle').textContent = courseTitle;
+        document.title = courseTitle + " - 課程大綱";
+    }
+
+    // --- 字體大小切換函式 ---
+    function setFontSize(size, btn) {
+        // 設定內容區塊字體大小
+        document.getElementById('contentArea').style.fontSize = size;
+        
+        // 更新按鈕樣式 (Active 狀態)
+        const buttons = document.querySelectorAll('.font-btn');
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    async function fetchDetails() {
+        if (!courseId) {
+            document.getElementById('contentArea').innerHTML = '<div class="error-msg">無效的課程編號</div>';
+            return;
+        }
+
+        try {
+            const res = await fetch(`http://127.0.0.1:5000/api/course_detail?id=${courseId}`);
+            const data = await res.json();
+
+            if (data.error) throw new Error(data.error);
+
+            renderDetails(data);
+
+        } catch (err) {
+            console.error(err);
+            document.getElementById('contentArea').innerHTML = `
+                <div class="error-msg">
+                    資料讀取失敗，請確認後端程式 (app.py) 是否執行中。<br>
+                    錯誤訊息: ${err.message}
+                </div>
+            `;
+        }
+    }
+
+    function renderDetails(data) {
+        const contentArea = document.getElementById('contentArea');
+        
+        // --- 1. 課程詳細資訊表格 ---
+        let infoTableHtml = `
+            <h3 class="section-title">課程詳細資訊</h3>
+            <table class="info-table">
+                <tr><th>講師姓名</th><td>${data.lecturer_name || '無'}</td></tr>
+                <tr><th>講師學歷</th><td>${data.lecturer_edu || '無'}</td></tr>
+                <tr><th>講師經歷</th><td>${data.lecturer_exp || '無'}</td></tr>
+                <tr><th>開課週次</th><td>${data.week || '無'}</td></tr>
+                <tr><th>上課時段</th><td>${data.time || '無'}</td></tr>
+                <tr><th>課程理念</th><td>${data.concept || '無'}</td></tr>
+                <tr><th>教學方式</th><td>${data.method || '無'}</td></tr>
+                <tr><th>評鑑方式</th><td>${data.assessment || '無'}</td></tr>
+                <tr><th>參考書目</th><td>${data.references || '無'}</td></tr>
+                <tr><th>選課要求</th><td>${data.target || '無'}</td></tr>
+                <tr><th>學分費用</th><td>${data.credit_fee || '無'}</td></tr>
+                <tr><th>額外費用</th><td>${data.extra_fee || '無'}</td></tr>
+                <tr><th>招生人數</th><td>${data.limit || '無'}</td></tr>
+            </table>
+        `;
+
+        // --- 2. 18週課表 ---
+        let syllabusHtml = '';
+        if (data.syllabus && data.syllabus.length > 0) {
+            const validItems = data.syllabus.filter(item => 
+                !item.topic.includes('週次課程主題') && item.content !== '週次'
+            );
+
+            if (validItems.length > 0) {
+                syllabusHtml = `
+                    <h3 class="section-title">18週課程課表</h3>
+                    <table class="syllabus-table">
+                        <thead>
+                            <tr>
+                                <th>週次</th>
+                                <th>課程主題與內容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${validItems.map(item => `
+                                <tr>
+                                    <td class="week-col">${item.week}</td>
+                                    <td>
+                                        <span class="topic-text">${item.topic}</span>
+                                        <span class="desc-text">${item.content}</span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+        }
+
+        if (!syllabusHtml) {
+            syllabusHtml = '<h3 class="section-title">18週課程課表</h3><p style="color:#666">尚無詳細課表資料。</p>';
+        }
+
+        contentArea.innerHTML = infoTableHtml + syllabusHtml;
+    }
+
+    fetchDetails();
+</script>
+
+</body>
+</html>

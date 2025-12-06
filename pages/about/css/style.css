@@ -1,0 +1,750 @@
+*{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;    
+}
+
+/* =========================================
+   1. CSS 變數設定 (Design Tokens)
+   集中管理顏色、陰影、圓角等，方便日後統一修改
+   ========================================= */
+:root {
+    /* --- 配色系統 --- */
+    --primary-blue: #003366;      /* 主色：深藍 (皇室藍)，代表穩重與學術 */
+    --primary-dark: #002244;      /* 深色：用於漸層或按鈕 Hover 狀態 */
+    --accent-yellow: #FFD700;     /* 輔色：金黃，用於強調、按鈕、裝飾線，增添活力 */
+    --text-dark: #2c3e50;         /* 文字色：深灰藍，比純黑更柔和 */
+    --text-gray: #596775;         /* 次要文字色：用於說明文字 */
+    --bg-white: #ffffff;          /* 背景色：純白 */
+    --bg-light: #f4f7f6;          /* 背景色：極淡灰藍，用於區分區塊 */
+    
+    /* --- 陰影效果 (提升層次感) --- */
+    --shadow-sm: 0 4px 6px rgba(0, 51, 102, 0.05);   /* 輕微陰影 */
+    --shadow-md: 0 10px 30px rgba(0, 51, 102, 0.1);  /* 中等陰影 (卡片預設) */
+    --shadow-lg: 0 20px 50px rgba(0, 51, 102, 0.15); /* 強烈陰影 (懸浮時) */
+    
+    /* --- 其他設定 --- */
+    --border-radius: 16px;        /* 統一圓角大小 */
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 統一動畫過渡效果 (貝茲曲線讓動作更滑順) */
+}
+/* =========================================
+   2. 全域重置與基礎設定 (Reset & Base)
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 讓 padding 和 border 包含在寬度內 */
+}
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.8;
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+    overflow-x: hidden; /* 防止水平捲軸出現 */
+    scroll-behavior: smooth; /* 讓錨點跳轉時有平滑捲動效果 */
+}
+/* 注意：預設字體大小設在 html 標籤上，
+   setFontSize 函數會修改這個值，
+   進而影響所有使用 rem 單位的元素。
+*/
+html {
+    font-size: 16px; /* 預設基準 */
+    transition: font-size 0.3s ease; /* 字體縮放時的平滑過渡 */
+}
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+/* --- 滾動顯現動畫 (Scroll Reveal) --- */
+/* 預設狀態：向下偏移且透明 */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+/* 觸發狀態：回復原位且不透明 (由 JS 控制加入此 class) */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* =========================================
+   3. 頁首導航列 (Header)
+   ========================================= */
+header {
+    background-color: rgba(0, 51, 102, 0.95); /* 半透明深藍背景 */
+    backdrop-filter: blur(10px); /* 毛玻璃效果 (背景模糊) */
+    color: white;
+    padding: 1rem 5%;
+    position: sticky; /* 黏性定位：滑動時固定在頂部 */
+    top: 0;
+    z-index: 1000; /* 確保在最上層 */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: padding 0.3s;
+}
+.nav-container {
+    max-width: 1440px; /* 限制最大寬度，避免在大螢幕太散 */
+    margin: 0 auto;    /* 置中 */
+    display: flex;
+    justify-content: space-between; /* 左右推開 */
+    align-items: center;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+}
+        
+.logo i { margin-right: 10px; color: var(--accent-yellow); }
+/* --- 字體大小控制區塊樣式 (更新為膠囊風格) --- */
+.font-controls {
+    display: flex;
+    gap: 5px;
+    background-color: #f0f0f0; /* 淺灰背景 */
+    padding: 5px;
+    border-radius: 20px;
+    align-items: center;
+}
+.font-label {
+    font-size: 1rem;
+    color: #666; /* 改為深灰色以配合淺底 */
+    padding: 0 5px;
+    font-weight: 500;
+}
+.font-btn {
+    border: none;
+    background: none;
+    padding: 6px 14px; /* 加大點擊範圍 */
+    cursor: pointer;
+    font-size: 1rem;   /* 加大按鈕文字 */
+    border-radius: 15px;
+    color: #555;
+    font-weight: bold;
+    transition: all 0.2s;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+.font-btn:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+.font-btn.active {
+    background-color: var(--primary-blue);
+    color: white;
+}
+/* 手機版調整 */
+@media (max-width: 576px) {
+    .logo { font-size: 1.2rem; }
+    .font-label { display: none; } /* 手機版隱藏「字體：」文字 */
+    .font-btn { padding: 4px 10px; font-size: 0.9rem; }
+}
+/* =========================================
+   4. Hero 形象區塊
+   ========================================= */
+.hero {
+    position: relative;
+    /* 背景圖疊加深藍色漸層，增加文字可讀性 */
+    background: linear-gradient(135deg, rgba(0, 34, 68, 0.9), rgba(0, 51, 102, 0.75)), 
+                url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;      /* 高度設為視窗高度的 60% */
+    min-height: 500px; /* 最小高度限制 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    /* 使用 clip-path 切出底部的波浪/斜角造型 */
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+    margin-bottom: 60px;
+}
+.hero-content {
+    animation: fadeUp 1s ease-out; /* 進場動畫 */
+    max-width: 900px;
+    width: 90%;
+    position: relative;
+}
+        
+/* 標題兩側的黃色裝飾線 */
+.hero-content::before, .hero-content::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 2px;
+    background: var(--accent-yellow);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.hero-content::before { left: -60px; }
+.hero-content::after { right: -60px; }
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+.hero-content p {
+    font-size: 1.4rem;
+    color: var(--accent-yellow);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+/* Hero 區塊專用的進場動畫關鍵影格 */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* =========================================
+   5. 通用容器與標題樣式
+   ========================================= */
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+.section-padding {
+    padding: 100px 0;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 80px;
+}
+.section-title h2 {
+    color: var(--primary-blue);
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+/* 標題下方的黃色動態線條 */
+.section-title h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: var(--accent-yellow);
+    margin: 20px auto 0;
+    border-radius: 4px;
+    transition: width 0.3s; /* 滑鼠移過時的伸長動畫 */
+}
+        
+.section-title:hover h2::after {
+    width: 120px;
+}
+.section-title p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+/* =========================================
+   6. 關於我們區塊 (Grid Layout)
+   ========================================= */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 左右兩欄等寬 */
+    gap: 80px;
+    align-items: center;
+}
+.about-text {
+    position: relative;
+    padding: 40px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    /* 點點背景裝飾 */
+    background-image: radial-gradient(var(--primary-blue) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: #fff;
+}
+        
+/* 透過偽元素蓋一層白色背景，讓點點只出現在邊緣或特定區域 */
+.about-text::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: var(--border-radius);
+    z-index: -1;
+    box-shadow: var(--shadow-md);
+}
+        
+/* 左側黃色裝飾條 */
+.about-text::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 30px;
+    bottom: 30px;
+    width: 6px;
+    background-color: var(--accent-yellow);
+    border-radius: 0 5px 5px 0;
+    z-index: 1;
+}
+.about-text h3 {
+    color: var(--primary-blue);
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    line-height: 1.3;
+    z-index: 1;
+    position: relative;
+}
+.about-text p {
+    margin-bottom: 25px;
+    text-align: justify; /* 文字左右對齊 */
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+}
+        
+.about-text strong {
+    color: var(--primary-blue);
+    font-weight: 700;
+}
+.about-img-wrapper {
+    position: relative;
+}
+        
+/* 圖片後方的黃色框線裝飾 */
+.about-img-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    width: 100%;
+    height: 100%;
+    border: 4px solid var(--accent-yellow);
+    border-radius: var(--border-radius);
+    z-index: -1;
+}
+.about-img {
+    width: 100%;
+    height: 550px;
+    border-radius: var(--border-radius);
+    overflow: hidden; /* 讓圖片放大時不超出邊界 */
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+        
+.about-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+        
+.about-img:hover img {
+    transform: scale(1.05); /* 滑鼠移過圖片放大 */
+}
+/* 圖片右下角的半透明註記 */
+.img-caption {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    backdrop-filter: blur(4px); /* 背景模糊效果 */
+    z-index: 2;
+    pointer-events: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+/* =========================================
+   7. 交通資訊區塊
+   ========================================= */
+.traffic-section {
+    background-color: var(--bg-light); /* 淺灰背景 */
+    margin-top: 120px;
+    position: relative;
+    /* 上方裁切造型 */
+    clip-path: polygon(0 60px, 100% 0, 100% 100%, 0 100%);
+    padding-top: 140px;
+    padding-bottom: 140px;
+}
+/* --- 地址大卡片 --- */
+.address-card {
+    background: white;
+    padding: 50px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 80px;
+    text-align: center;
+    border-top: 6px solid var(--primary-blue); /* 頂部藍色條 */
+    transition: var(--transition);
+    position: relative;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+        
+.address-card:hover { 
+    transform: translateY(-10px); /* 懸浮上移 */
+    box-shadow: var(--shadow-lg);
+    border-top-color: var(--accent-yellow); /* 變色效果 */
+}
+.address-card h3 {
+    color: var(--primary-blue);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+}
+        
+.address-card h3 i { color: var(--accent-yellow); font-size: 2rem; }
+.address-card p {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+        
+.address-sub {
+    color: var(--text-gray);
+    margin-top: 10px;
+    font-size: 1rem;
+    background: #f0f4f8;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 30px;
+}
+/* --- 交通方式切換按鈕 (Tabs) --- */
+.traffic-controls {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 50px;
+    flex-wrap: wrap; /* 允許換行 */
+}
+.control-btn {
+    background: white;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+    justify-content: center;
+}
+.control-btn i { font-size: 1.6rem; color: var(--text-gray); transition: var(--transition); }
+.control-btn h4 { font-size: 1.2rem; font-weight: 600; color: var(--text-gray); transition: var(--transition); margin: 0; }
+.control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+/* 按鈕啟用狀態 */
+.control-btn.active {
+    background-color: var(--primary-blue);
+    box-shadow: var(--shadow-md);
+}
+.control-btn.active i, .control-btn.active h4 { color: var(--accent-yellow); }
+/* --- 內容面板與地圖佈局 --- */
+.traffic-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* 左側列表較窄，右側地圖較寬 */
+    gap: 50px;
+    align-items: start;
+}
+.traffic-panel {
+    background: white;
+    padding: 50px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    /* 固定高度並允許捲動，確保與地圖高度一致 */
+    height: 550px;
+    position: relative;
+    overflow-y: auto; 
+}
+.panel-content {
+    display: none; /* 預設隱藏 */
+    animation: fadeIn 0.5s ease-out;
+}
+.panel-content.active { display: block; /* JS 切換顯示 */ }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.panel-title {
+    color: var(--primary-blue);
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.panel-title i { color: var(--accent-yellow); }
+/* 通用列表樣式 */
+.panel-list li {
+    margin-bottom: 25px;
+    padding-left: 10px;
+    position: relative;
+    border-left: 4px solid #eee;
+    padding-left: 25px;
+    transition: border-color 0.3s;
+    font-size: 1.1rem;
+}
+.panel-list li:hover { border-left-color: var(--accent-yellow); }
+/* --- 交通資訊網格 (Grid) 樣式 --- */
+.transport-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+.transport-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #ccc;
+    transition: var(--transition);
+    position: relative;
+}
+.transport-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+/* 📍 最近站點的特殊強調樣式 */
+.transport-item.nearest {
+    border-left-color: var(--accent-yellow);
+    background-color: #fffdf2; /* 淡黃色背景 */
+    border: 1px solid #ffeeba; 
+    border-left-width: 6px;
+}
+.transport-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+.transport-name {
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+}
+.walk-time-tag {
+    font-size: 0.85rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    background-color: #e9ecef;
+    color: var(--text-gray);
+}
+.transport-item.nearest .walk-time-tag {
+    background-color: var(--primary-blue);
+    color: white; /* 強調最近站點的時間 */
+}
+        
+.nearest-badge {
+    font-size: 0.8rem;
+    color: #d9534f; /* 紅色標示 */
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.transport-desc {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding-top: 5px;
+    border-top: 1px dashed #eee;
+}
+/* 捷運路線標籤 */
+.tag-blue {
+    background-color: #005EB8; /* 板南線藍 */
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.tag-red {
+    background-color: #E3002C; /* 淡水信義線紅 */
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.highlight-tag {
+    background-color: rgba(0, 51, 102, 0.08);
+    color: var(--primary-blue);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+/* --- Google Maps 外框 --- */
+.map-wrapper {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 6px solid white;
+    height: 550px;
+    transition: var(--transition);
+}
+        
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+}
+/* =========================================
+   8. 頁尾 (Footer)
+   ========================================= */
+footer {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 40px 0 20px;
+    position: relative;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 20px;
+}
+.footer-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.footer-logo i { color: var(--accent-yellow); }
+.footer-info p {
+    margin-bottom: 10px;
+    opacity: 0.9;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1rem;
+}
+.footer-info i { width: 25px; color: var(--accent-yellow); text-align: center; }
+.copyright {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    border-top: 1px solid rgba(255,255,255,0.15); /* 分隔線 */
+    padding-top: 20px;
+    text-align: center;
+}
+        
+/* 社群圖示 (FB) */
+.social-icon {
+    font-size: 1.8rem;
+    color: white;
+    margin-top: 15px;
+    display: inline-block;
+    transition: var(--transition);
+}
+.social-icon:hover {
+    color: var(--accent-yellow);
+    transform: translateY(-3px);
+}
+        
+/* --- 回到頂部按鈕 --- */
+.back-to-home-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    background-color: var(--accent-yellow);
+    color: var(--primary-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 900;
+    transition: var(--transition);
+    border: 3px solid white;
+    opacity: 0;     /* 預設隱藏 */
+    visibility: hidden;
+}
+        
+/* JS 控制顯示的 class */
+.back-to-home-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.back-to-home-btn:hover {
+    transform: translateY(-5px) rotate(360deg);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    background-color: white;
+    color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+/* =========================================
+   9. RWD 響應式設計 (Media Queries)
+   ========================================= */
+@media (max-width: 992px) {
+    /* 平板/小筆電 */
+    .hero { height: 50vh; clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%); }
+    .hero-content h1 { font-size: 3rem; }
+    
+    .about-content { grid-template-columns: 1fr; gap: 50px; } /* 改為單欄 */
+    .about-img { height: 400px; order: -1; } /* 圖片移到文字上方 */
+    
+    .traffic-content-wrapper { grid-template-columns: 1fr; } /* 改為單欄 */
+    .map-wrapper { height: 400px; }
+    /* 在手機版取消面板固定高度，改為自動高度，避免內捲軸體驗不佳 */
+    .traffic-panel { height: auto; min-height: auto; max-height: none; overflow-y: visible; }
+    
+    /* 列表手機版微調 */
+    .transport-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+}
+@media (max-width: 768px) {
+    /* 手機 */
+    .hero { height: 450px; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+    .hero-content h1 { font-size: 2.5rem; letter-spacing: 1px; }
+    /* 手機版隱藏裝飾線 */
+    .hero-content::before, .hero-content::after { display: none; }
+    
+    .container { padding: 0 20px; }
+    .section-padding { padding: 60px 0; }
+    .section-title h2 { font-size: 2.2rem; }
+    
+    /* 交通按鈕改為垂直排列 */
+    .traffic-controls { flex-direction: column; width: 100%; }
+    .control-btn { width: 100%; justify-content: flex-start; padding-left: 30%; }
+    
+    /* Footer 改為單欄 */
+    .footer-content { grid-template-columns: 1fr; gap: 40px; }
+    .copyright { text-align: center; }
+    
+    .back-to-home-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+}

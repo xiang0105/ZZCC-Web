@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於我們 | 臺北市中正社區大學</title>
+    <!-- 引入 Font Awesome 圖示庫 -->
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/x-icon" href="../../images/logo.ico">
+</head>
+<body id="top">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                臺北市中正社區大學
+            </div>
+            
+            <!-- 新增：字體大小控制區塊 -->
+            <div class="font-controls">
+                <span class="font-label">字體：</span>
+                <button class="font-btn" onclick="setFontSize('16px', this)">小</button>
+                <button class="font-btn active" onclick="setFontSize('18px', this)">中</button>
+                <button class="font-btn" onclick="setFontSize('22px', this)">大</button>
+                <button class="font-btn" onclick="setFontSize('26px', this)">特大</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>在地深耕．終身學習</h1>
+            <p>Zhongzheng Community College</p>
+        </div>
+    </section>
+
+    <!-- 關於中正社大 -->
+    <section id="about" class="section-padding container">
+        <div class="section-title reveal">
+            <h2>辦學理念</h2>
+            <p>Philosophy & Vision</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text reveal">
+                <h3>知識解放<br>建立現代公民社會</h3>
+                <p>
+                    臺北市中正社區大學秉持著「知識解放、建立公民社會」的理念，以中正區豐富的歷史人文與政經資源為基礎，致力於推動成人終身教育。
+                </p>
+                <p>
+                    我們期許透過多元的課程與公共議題的參與，培育具備現代素養的公民，並凝聚社區意識，讓中正區不僅是臺北的政經中心，更是人文薈萃的學習型社區。
+                </p>
+                <p><strong>歡迎加入我們，開啟終身學習的旅程。</strong></p>
+            </div>
+            <div class="about-img-wrapper reveal">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="中正社大教學情境">
+                    <div class="img-caption">非真實環境僅參考</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 交通資訊區塊 -->
+    <section id="traffic" class="traffic-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>交通位置</h2>
+                <p>Location & Traffic</p>
+            </div>
+
+            <!-- 地址卡片 -->
+            <div class="address-card reveal">
+                <h3><i class="fas fa-map-marker-alt"></i> 校區地址</h3>
+                <p>臺北市中正區濟南路一段六號</p>
+                <div class="address-sub">（開南大學 / 臺北成功高中旁，辦公室位於開南大學一樓聯合服務中心）</div>
+            </div>
+
+            <!-- 互動式選單 -->
+            <div class="traffic-controls reveal">
+                <button class="control-btn active" onclick="showTraffic('mrt', this)">
+                    <i class="fas fa-subway"></i>
+                    <h4>捷運搭乘</h4>
+                </button>
+                <button class="control-btn" onclick="showTraffic('bus', this)">
+                    <i class="fas fa-bus"></i>
+                    <h4>公車資訊</h4>
+                </button>
+                <button class="control-btn" onclick="showTraffic('walk', this)">
+                    <i class="fas fa-car"></i>
+                    <h4>走路／開車</h4>
+                </button>
+            </div>
+
+            <div class="traffic-content-wrapper">
+                <!-- 詳細資訊面板 -->
+                <div class="traffic-panel reveal">
+                    
+                    <!-- 1. 捷運內容 -->
+                    <div id="content-mrt" class="panel-content active">
+                        <h3 class="panel-title"><i class="fas fa-subway"></i> 搭乘捷運 (MRT)</h3>
+                        <div class="transport-grid">
+                            <!-- 最近: 善導寺站 -->
+                            <div class="transport-item nearest">
+                                <div class="transport-header">
+                                    <span class="transport-name">捷運善導寺站</span>
+                                    <span class="nearest-badge"><i class="fas fa-map-pin"></i> 最近站點</span>
+                                    <span class="walk-time-tag">步行約 5 分鐘</span>
+                                </div>
+                                <div class="transport-desc">
+                                    <span class="tag-blue">板南線</span> <strong>2號出口</strong> 出站後，沿林森南路直行至濟南路左轉。
+                                </div>
+                            </div>
+
+                            <!-- 次近: 臺大醫院站 -->
+                            <div class="transport-item">
+                                <div class="transport-header">
+                                    <span class="transport-name">捷運臺大醫院站</span>
+                                    <span class="walk-time-tag">步行約 10 分鐘</span>
+                                </div>
+                                <div class="transport-desc">
+                                    <span class="tag-red">淡水信義線</span> <strong>2號出口</strong> 出站，沿常德街接林森南路，再轉濟南路。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 公車內容 -->
+                    <div id="content-bus" class="panel-content">
+                        <h3 class="panel-title"><i class="fas fa-bus"></i> 搭乘公車 (Bus)</h3>
+                        
+                        <div class="transport-grid">
+                            <!-- 最近站點 -->
+                            <div class="transport-item nearest">
+                                <div class="transport-header">
+                                    <span class="transport-name">開南中學 / 成功中學</span>
+                                    <span class="nearest-badge"><i class="fas fa-map-pin"></i> 最近站點</span>
+                                    <span class="walk-time-tag">步行約 1 分鐘</span>
+                                </div>
+                                <div class="transport-desc">
+                                    15、22、208、211、222、265、295、297、615、671
+                                </div>
+                            </div>
+
+                            <!-- 次近站點 -->
+                            <div class="transport-item">
+                                <div class="transport-header">
+                                    <span class="transport-name">青島林森路口</span>
+                                    <span class="walk-time-tag">步行約 3~5 分鐘</span>
+                                </div>
+                                <div class="transport-desc">
+                                    5、49、222、237、246、295、307、527、604
+                                </div>
+                            </div>
+
+                            <div class="transport-item">
+                                <div class="transport-header">
+                                    <span class="transport-name">捷運善導寺站 (公車站)</span>
+                                    <span class="walk-time-tag">步行約 5~8 分鐘</span>
+                                </div>
+                                <div class="transport-desc">
+                                    15、22、49、202、205、208、211、212、220、232、253、257、262、265、276、299、307、527、604、605、615、671
+                                </div>
+                            </div>
+
+                            <div class="transport-item">
+                                <div class="transport-header">
+                                    <span class="transport-name">臺大醫院 / 捷運臺大醫院</span>
+                                    <span class="walk-time-tag">步行約 10 分鐘</span>
+                                </div>
+                                <div class="transport-desc">
+                                    0東、2、5、15、18、20、22、37、222、236、237、241、243、245、249、251、261、263、295、513、604、640、644、648、651、670、706、中山幹線、信義幹線
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 走路/開車內容 -->
+                    <div id="content-walk" class="panel-content">
+                        <h3 class="panel-title"><i class="fas fa-car"></i> 走路與開車資訊</h3>
+                        <ul class="panel-list">
+                            <li>
+                                <strong>自行開車 (Parking)</strong>
+                                <p style="color:var(--text-gray);">
+                                    請注意：本校區未提供學員停車位。
+                                    <br>
+                                    建議參考 <strong>臺北市停車資訊導引系統</strong> 或利用周邊 <strong>路邊收費停車格</strong>。
+                                </p>
+                            </li>
+                            <li>
+                                <strong>步行資訊 (Walking)</strong>
+                                <ul style="list-style-type: circle; margin-left: 20px; margin-top: 10px; color: var(--text-gray);">
+                                    <li style="border:none; padding:0; margin-bottom:8px;"><strong>火車/高鐵臺北站：</strong>步行約 10~15 分鐘即可抵達中正社大。</li>
+                                    <li style="border:none; padding:0; margin-bottom:8px;"><strong>捷運臺北車站：</strong>8號出口，步行約 15 分鐘。</li>
+                                    <li style="border:none; padding:0; margin-bottom:8px;"><strong>捷運善導寺站：</strong>2號出口，步行約 5 分鐘。</li>
+                                    <li style="border:none; padding:0; margin-bottom:8px;"><strong>捷運臺大醫院站：</strong>2號出口，步行約 10 分鐘。</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Google Maps -->
+                <div class="map-wrapper reveal">
+                    <!-- 預設固定顯示中正社大的紅色地標 -->
+                    <iframe 
+                        id="mapFrame"
+                        src="https://maps.google.com/maps?q=臺北市中正社區大學&z=16&output=embed" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        臺北市中正社區大學
+                    </div>
+                    <div style="opacity:0.8; line-height:1.6; max-width:400px;">
+                        深耕中正，終身學習。<br>
+                        我們致力於提供多元的學習機會，連結社區資源，打造優質的公民學習場域。
+                    </div>
+                    <!-- FB 連結圖示 -->
+                    <a href="https://www.facebook.com/zzcc.since.20030225" target="_blank" class="social-icon" title="Facebook 粉絲專頁">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+                
+                <div class="footer-info">
+                    <h4 style="color:var(--accent-yellow); margin-bottom:15px; font-size:1.1rem;">聯絡我們</h4>
+                    <p><i class="fas fa-phone-alt"></i> 02-2327-8441</p>
+                    <p><i class="fas fa-fax"></i> 02-2327-8912</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 100 臺北市中正區濟南路一段六號</p>
+                    <p><i class="far fa-clock"></i> 週一至週五 14:00 - 21:00</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Zhongzheng Community College. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Home/Top Button -->
+    <a href="../../index.html" class="back-to-home-btn" id="backToTop" title="回首頁">
+        <i class="fas fa-home"></i>
+    </a>
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/index.js"></script>
+
+</body>
+</html>

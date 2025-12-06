@@ -1,0 +1,530 @@
+*{
+    position: relative;
+    scroll-behavior: smooth;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    .title{
+        font-size: 6vh;
+        font-weight: bolder;
+    }
+
+    .subtitle{
+        font-size: 2vh;
+        font-weight: bolder;
+        color: #0008;
+    }
+
+    @media (max-width:768px) {
+        .title{
+            font-size: 4vh;
+        }
+        .subtitle{
+            font-size: 1.5vh;
+        }
+    }
+}
+
+nav{
+    
+    .nav-link{
+        color: #1f2d40 !important; 
+        font-weight: bolder;
+    }
+
+    .nav-link:hover{
+        color: #0b408e !important;
+    }
+
+    .more-information{
+        display: flex;
+        flex-direction: direction;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 18px;
+        box-shadow: 0 6px 18px rgba(23,107,155,0.18);
+        font-weight: 600;   
+        background-color: #0b408e;
+    }
+
+    .navbar-nav{
+        padding-right: calc(280px - 130px);
+
+    }
+    .navbar-nav:hover{
+        color: #0b408e !important;
+    }
+
+    @media (max-width : 768px) {
+        .more-information{
+            display: none;
+        }
+    }
+
+
+}
+
+#home{
+
+    height: 100vh;
+    padding-top: 15vh;
+
+    .main-heading{
+        font-size: 10vh;
+        font-weight: bolder;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .background-box{
+        background-color: #1f4f86;
+        height: 50vh;
+        width: 100%;
+        margin-top: 10vh;
+        border-radius: 16px;
+    }
+
+    img{
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        width: 70%;
+        border: solid 1rem #000;
+        border-radius: 16px;
+    }
+
+    @media (max-width : 768px) {
+
+        max-height: 50vh;
+
+        .main-heading{
+            font-size: 4vh;
+        }
+
+        .background-box{
+            display: none;
+        }
+
+        img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 70%;
+            border: solid 1rem #000;
+            border-radius: 16px;
+        }
+    }
+}
+
+#features{
+
+    
+    padding-top: 15vh;
+
+    .title,.subtitle, .features-title, .features-content,.col-3{
+        text-align: center;
+    }
+
+    .col-lg-3{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .features-title{
+        font-size: 1.333rem;
+        font-weight: bolder;
+    }
+
+    .features-content{
+        color: #0008;
+    }
+
+    hr{
+        margin: 3rem;
+    }
+
+    i{
+        font-size: 3rem;
+    }
+
+    .features-item{
+        margin: 0;
+    }
+
+    @media (max-width:768px) {
+
+        padding-top: 5vh;
+
+        .features-item{
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+#news{
+
+    padding-top: 15vh;
+
+    .title,.subtitle{
+        text-align: right;
+    }
+
+    .news-list{
+        margin-top: 3rem;
+        padding: 0;
+    }
+
+    .news-title{
+        display: -webkit-box;  
+        -webkit-box-orient: vertical; 
+        -webkit-line-clamp: 1;   
+        line-clamp: 1;  
+        overflow: hidden;    
+        font-size: 1.2rem;
+        font-weight: bolder;     
+
+        line-height: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .news-img{
+        height: 25vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    @media (max-width : 768px) {
+
+        padding-top: 5vh;
+
+        .title,.subtitle{
+            text-align: center;
+        }
+
+        .news-list{
+            padding: 0 1rem;
+        }
+    }
+
+}
+
+#courses{
+
+    padding-top: 15vh;
+
+    .courses-list{
+        margin-top: 3rem;
+        height: 30vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 0;
+    }
+    
+
+    .courses-title{
+        cursor: pointer;
+        color: #1f2d40;
+        text-decoration: none;
+    }
+
+    .courses-title:hover{
+        color: #0b408e;
+    }
+
+    @media (max-width : 768px) {
+
+        padding-top: 5vh;
+
+        .title,.subtitle{
+            text-align: center;
+        }
+
+        .courses-list{
+            padding: 0 1rem;
+            height: 40vh;
+        }
+    }
+
+}
+
+#campus-view{
+
+    padding-top: 15vh;
+
+    .container-fluid{
+        min-height: 60vh;
+        background-image: url(../images/campus/1.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    @media (max-width : 768px) {
+
+        padding-top: 5vh;
+
+    }
+}
+
+#links{
+
+    padding-top: 15vh;
+    
+    .container-fluid{
+        width: 75%;
+    }
+
+    .title,.subtitle{
+        text-align: center;
+    }
+
+    .carousel-container {
+        position: relative; /* 為了讓按鈕定位 */
+        padding: 0 50px;    /* 左右留空間給按鈕 */
+    }
+
+    
+    .carousel-track {
+        display: flex;       /* 改成 Flex 橫向排列 */
+        gap: 24px;           /* 卡片之間的間距 */
+        overflow-x: auto;    /* 允許橫向捲動 */
+        scroll-behavior: smooth; /* 平滑捲動效果 */
+        padding: 20px 10px;  /* 上下留點空間給陰影 */
+        /* 隱藏預設捲軸 (讓它看起來像輪播) */
+        scrollbar-width: none; /* Firefox */
+    }
+    .carousel-track::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
+    }
+
+    .quick-menu-card {
+        position: relative;
+        display: block;
+        height: 220px;
+        width: 300px;
+        min-width: 300px;
+        border-radius: 20px;
+        overflow: hidden;
+        text-decoration: none;
+        flex-shrink: 0;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.0.8);
+        transition: transform 0.3s ease;
+    }
+
+    /* 左右切換按鈕 */
+    .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid #ddd;
+        color: #333;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+    }
+
+    .nav-btn:hover {
+        background: #333;
+        color: #fff;
+    }
+
+    .prev-btn { left: 0; }
+    .next-btn { right: 0; }
+
+    .quick-menu-card .card-background {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+
+    .quick-menu-card .card-background img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .quick-menu-card .card-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 2;
+        transition: background 0.3s ease;
+    }
+
+    .quick-menu-card .card-number {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        font-size: 22px;
+        color: #fff;
+        z-index: 3;
+    }
+
+    .quick-menu-card .card-title {
+        position: absolute;
+        left: 14px;
+        bottom: 16px;
+        font-size: 16px;
+        color: #fff;
+        z-index: 3;
+        font-weight: 700;
+    }
+
+    .quick-menu-card .card-description {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        z-index: 4;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .quick-menu-card:hover { transform: translateY(-6px); }
+    .quick-menu-card:hover .card-background img { transform: scale(1.08); }
+    .quick-menu-card:hover .card-overlay { background: rgba(0,0,0,0.55); }
+    .quick-menu-card:hover .card-description { opacity: 1; transform: translateY(0); }
+    .quick-menu-card:hover .card-number,
+    .quick-menu-card:hover .card-title { opacity: 0; transform: translateY(-20px); transition: all 0.25s ease; }
+
+    .quick-menu-card .card-description p { color: #fff; margin: 0; font-size: 14px; line-height: 1.6; }
+
+    .quick-menu-card {
+        width: 300px; /* 對應 JS 的 300 */
+    }
+    .carousel-track {
+        gap: 24px;   /* 對應 JS 的 24 */
+    }
+    
+    @media (max-width : 768px) {
+
+        padding-top: 5vh;
+        
+        .container-fluid{
+            width: 100%;
+        }
+
+        .quick-menu-card {
+            width: 150px; /* ⚠️ 這裡的數字要跟 JS 裡的 isMobile ? 250 一樣 */
+        }
+        .carousel-track {
+            gap: 16px;    /* ⚠️ 這裡的數字要跟 JS 裡的 gap 一樣 */
+        }
+            
+    }
+}
+
+#contact{
+
+    padding: 15vh 0;
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .title,.subtitle{
+        text-align: center;
+    }
+
+    .contact-info{
+        margin-top: 3rem;
+        text-align: center;
+        color: #0008;
+    }
+
+    .btn{
+        width: 80%;
+        border-radius: 24px;
+        padding: 1rem;
+    }
+
+    
+    @media (max-width : 768px) {
+
+        padding: 5vh 0;
+
+    }
+}
+
+#footer{
+    background-color: #1f2d40;
+    color: #fff;
+    padding: 2rem 0;
+    /* text-align: center; */
+
+    .footer-link{
+        padding: 1rem 0;
+        display: flex;
+        /* flex-direction: column; */
+        gap: 1rem;
+    }
+
+    a{
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+
+    
+    @media (max-width : 768px) {
+        
+        .footer-link{
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+    }
+}
+
+.modal{
+
+    label{
+        font-weight: bolder;
+        padding: .5rem 0;
+    }
+
+    .input-group{
+        display: flex;
+        flex-direction: column;
+
+        .form-control{
+            width: 100%;
+        }
+    }
+}

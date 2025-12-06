@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-fontsize="medium">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常見問題 Q&A - 臺北市社區大學</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/x-icon" href="../../images/logo.ico">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">
+                臺北市中正社區大學
+            </a>
+            
+            <div class="nav-right-group">
+                <!-- Compact Search (Appears on scroll) -->
+                <div class="header-search" id="header-search">
+                    <input type="text" id="header-search-input" placeholder="搜尋問題...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- Font Size Control -->
+                <div class="font-size-control-header">
+                    <span style="font-size: 13px; color: #888; margin-right: 5px; font-weight: 500;">字級</span>
+                    <button class="font-btn-header" onclick="setFontSize('small')" id="h-btn-small">小</button>
+                    <button class="font-btn-header active" onclick="setFontSize('medium')" id="h-btn-medium">中</button>
+                    <button class="font-btn-header" onclick="setFontSize('large')" id="h-btn-large">大</button>
+                    <button class="font-btn-header" onclick="setFontSize('xlarge')" id="h-btn-xlarge">特大</button>
+                </div>
+
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-home"><i class="fas fa-home" style="margin-right: 5px;"></i> 回首頁</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1>常見問題 Q&A</h1>
+            <p>教務資訊 ｜ 課程規劃 ｜ 學員保險</p>
+        </div>
+    </div>
+
+    <nav class="category-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#about" id="nav-about">關於社區大學</a></li>
+                <li><a href="#course" id="nav-course">課程與教學</a></li>
+                <li><a href="#admin" id="nav-admin">報名與制度</a></li>
+                <li><a href="#insurance" id="nav-insurance">學員保險</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="search-wrapper">
+        <div class="container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="faq-search-input" placeholder="請輸入關鍵字搜尋問題（例如：費用、保險、報名...）" autocomplete="off">
+                <div class="search-recommendations" id="search-recommendations">
+                    <div class="recommendation-title">熱門關鍵字推薦</div>
+                    <div id="recommendation-list"></div>
+                </div>
+            </div>
+            <div class="search-status" id="search-status"></div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="toolbar-section">
+            <div class="breadcrumb">
+                <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+                <i class="fas fa-chevron-right"></i>
+                <span class="current">常見問題</span>
+            </div>
+        </div>
+
+        <div id="no-result-msg" class="no-result">
+            <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px; color: #ccc;"></i><br>
+            抱歉，沒有找到與「<span id="search-term-display" style="color: var(--main-navy); font-weight: bold;"></span>」相關的問題。<br>
+            請嘗試使用其他關鍵字。
+        </div>
+
+        <section id="about" class="faq-section">
+            <div class="section-title">關於社區大學</div>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 臺北市社區大學的設立宗旨及願景？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        臺北市社區大學係以「知識解放、厚植公民社會」為願景，以培育現代公民為目標。不限學歷，提供人文素養、生活知能之終身學習課程，並配合市政發展開設現代公民學程。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 設置定位及法源依據為何？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        依據中央頒布之「終身學習法」、「社區大學發展條例」以及本市「臺北市社區大學自治條例」辦理。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 臺北市目前有幾所社區大學？設置地點在哪？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        目前共有 <strong>12所</strong> 社區大學，分別由社團法人、財團法人及學校營運。各校多設置於該行政區的國中、高中職內。
+                        <table class="data-table">
+                            <thead><tr><th>行政區</th><th>社大名稱</th><th>設置地點</th></tr></thead>
+                            <tbody>
+                                <tr><td>文山區</td><td>文山社區大學</td><td>景美國中</td></tr>
+                                <tr><td>士林區</td><td>士林社區大學</td><td>百齡高中</td></tr>
+                                <tr><td>萬華區</td><td>萬華社區大學</td><td>龍山國中</td></tr>
+                                <tr><td>南港區</td><td>南港社區大學</td><td>成德國中</td></tr>
+                                <tr><td>大同區</td><td>大同社區大學</td><td>建成國中</td></tr>
+                                <tr><td>信義區</td><td>信義社區大學</td><td>信義國中</td></tr>
+                                <tr><td>北投區</td><td>北投社區大學</td><td>新民國中</td></tr>
+                                <tr><td>內湖區</td><td>內湖社區大學</td><td>內湖高工</td></tr>
+                                <tr><td>松山區</td><td>松山社區大學</td><td>中崙高中</td></tr>
+                                <tr><td>中山區</td><td>中山社區大學</td><td>稻江護家</td></tr>
+                                <tr><td>中正區</td><td>中正社區大學</td><td>開南商工</td></tr>
+                                <tr><td>大安區</td><td>大安社區大學</td><td>金甌女中</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 社區大學與原住民族部落大學有何不同？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        兩者皆為終身學習機構。
+                        <ul>
+                            <li><strong>社區大學</strong>：主管機關為臺北市政府教育局。</li>
+                            <li><strong>原住民族部落大學</strong>：主管機關為臺北市原住民事務委員會，課程較著重於原住民文化。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="course" class="faq-section">
+            <div class="section-title">課程與教學</div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 課程是如何分類的？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        課程主要分為三大類：
+                        <ul style="margin-top: 10px;">
+                            <li><strong>學術課程</strong>：人文、社會科學、自然科學。目的在拓展知識廣度與批判思考。</li>
+                            <li><strong>社團活動課程</strong>：公共性與非公共性社團。目的在培育公民參與能力，凝聚社區意識。</li>
+                            <li><strong>生活藝能課程</strong>：資訊、語文、藝術、運動、養生、烹飪等。目的在學習實用技能，提升生活品質。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 課程內容有什麼規範或限制？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        <div style="margin-top: 10px; border: 1px solid #ffcccc; background: #fff5f5; padding: 15px;">
+                            <ul style="margin: 0; color: #b71c1c;">
+                                <li>不得違反公序良俗或觸犯法令。</li>
+                                <li><strong>禁止涉及醫療行為</strong>：如針灸、整脊、催眠、刮痧、拔罐、推拿等。</li>
+                                <li><strong>禁止命理迷信</strong>：如算命、八字、風水、姓名學、紫微斗數、氣功灌氣等。</li>
+                                <li><strong>禁止開鎖課程</strong>。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 一學期上課多久？如何補課？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        原則上每學期上課 <strong>18週</strong>。每年3月及9月的第一個星期一開學。若因國定假日、天災或講師請假而休假，皆應於學期中或結束後補課。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 什麼是「公民素養週」？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        每學期的 <strong>第9週</strong> 訂為公民素養週。社大將規劃講座、論壇或導覽活動，參與此活動為講師及學員之義務，缺席者視為曠課一次。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin" class="faq-section">
+            <div class="section-title">報名與制度</div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 入學資格有無限制？如何報名？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        <strong>不限年齡、不限學歷</strong>，免入學考試，亦不限戶籍（可跨區選讀）。<br>
+                        每年分兩次招生（約1月及6月下旬），請直接洽詢各社區大學或上「社大聯網」查詢。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 修完課程有學位文憑嗎？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        社大屬終身學習機構，<strong>目前無法頒發正式學位文憑</strong>。修讀通過之科目，由各社大發給「學習證明」。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 公務人員及教師可登錄進修時數嗎？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        <ul>
+                            <li><strong>公務人員</strong>：全部課程皆可登錄終身學習護照。</li>
+                            <li><strong>教師</strong>：須為「教師專業成長課程」並經教育局核定後，始得認證時數。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 可以購買學生月票或辦理兵役緩徵嗎？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        不行。社大學員不具法律上的學生身分，無法購買學生月票或辦理兵役緩徵。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon">Q</span> 收費、退費及優惠措施規定？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag">A</span>
+                        收費、雜費及退費皆依據「臺北市社區大學收退費標準」辦理。<br>
+                        優惠措施包含：專案課程5折、低收入戶、身心障礙、長者、原住民、新住民等減免辦法，詳情請洽各校。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="insurance" class="faq-section">
+            <div class="section-title" style="border-left-color: var(--accent-yellow);">學員團體意外險專區</div>
+            
+            <div style="background: #fffde7; border: 2px solid #fff9c4; padding: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-exclamation-circle" style="color: var(--main-navy); font-size: 2rem;"></i>
+                <span style="color: #333; font-size: 1.1rem; font-weight: bold;">為保障學員權益，建議詳閱以下保險資訊</span>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon" style="background: var(--accent-yellow); color: var(--main-navy);">Q</span> 保險的保障內容為何？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag" style="background: var(--main-navy);">A</span>
+                        保障為 <span class="highlight">100萬元</span> 的意外險，及 <span class="highlight">1萬元</span> 的意外醫療險。承保年齡廣納至99歲，保險期間為開學起至學期結束期間內的每天24小時。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon" style="background: var(--accent-yellow); color: var(--main-navy);">Q</span> 保費多少？合理嗎？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag" style="background: var(--main-navy);">A</span>
+                        春、秋季班 <span class="highlight">200元</span>，寒暑期班 <span class="highlight">100元</span>。此費用以全市12所社大10萬名學員為基數，並由臺北市政府教育局協助完成選商及議價程序，為目前最優惠價格。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon" style="background: var(--accent-yellow); color: var(--main-navy);">Q</span> 什麼情況可以理賠？非上課受傷可以嗎？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag" style="background: var(--main-navy);">A</span>
+                        任何因意外受傷害之醫療、住院或死亡均可申請。自學期開始至結束均在保險期間，<span class="highlight">意外受傷不分國內外地點</span>皆可申請理賠。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon" style="background: var(--accent-yellow); color: var(--main-navy);">Q</span> 一定要保嗎？我有其他保險了。</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag" style="background: var(--main-navy);">A</span>
+                        建議投保以獲妥善保障。惟為尊重納保意願，倘學員不願投保，須簽署「不納保切結書」，意外事故發生時由學員自行負責。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon" style="background: var(--accent-yellow); color: var(--main-navy);">Q</span> 跨校選課，每門課都要繳保費嗎？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag" style="background: var(--main-navy);">A</span>
+                        <span class="highlight">每學期僅需繳交一次保險費</span>。倘已於臺北市某一社大繳交，持收據或證明即可於其他社大報名免繳保費。
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h4><span class="q-icon" style="background: var(--accent-yellow); color: var(--main-navy);">Q</span> 該如何申請理賠？</h4>
+                    <div class="toggle-icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <span class="ans-tag" style="background: var(--main-navy);">A</span>
+                        學員或家屬需辦理理賠時，可至<span class="highlight">各社大辦公室</span>與南山人壽駐點人員洽談辦理。
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-wrapper">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i> 臺北市中正社區大學
+                    </div>
+                    <p>深耕中正，終身學習。</p>
+                    <p>我們致力於提供多元的學習機會，連結社區資源，打造優質的公民學習場域。</p>
+                    <a href="https://www.facebook.com/zzcc.since.20030225" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>聯絡我們</h3>
+                    <ul>
+                        <li><i class="fas fa-phone-alt"></i> 02-2327-8441</li>
+                        <li><i class="fas fa-fax"></i> 02-2327-8912</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 100 臺北市中正區濟南路一段六號</li>
+                        <li><i class="far fa-clock"></i> 週一至週五 14:00 - 21:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2025 Zhongzheng Community College. All Rights Reserved.
+            </div>
+        </div>
+        
+        <a href="../../index.html" class="floating-home-btn" title="回首頁">
+            <i class="fas fa-home"></i>
+        </a>
+    </footer>
+
+    
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/index.js"></script>
+
+</body>
+</html>

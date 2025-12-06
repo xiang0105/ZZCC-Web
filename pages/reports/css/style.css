@@ -1,0 +1,524 @@
+/* ========================================= */
+/* --- 基礎變數與重置 (Variables & Reset) --- */
+/* ========================================= */
+:root {
+    --color-primary-blue: #004B8D;        /* 主要藍色 (專業, 導覽列, 週數圓形) */
+    --color-secondary-green: #38A852;     /* 次要綠色 (PDF 提示, 活力) */
+    --color-accent-yellow: #FFC107;       /* 亮黃色 (行動呼籲, 邊框裝飾) */
+    --color-text-dark: #333;              /* 主要文字顏色 */
+    --color-bg-light: #f4f7f9;            /* 網頁淺色背景 */
+    --color-card-bg: #fff;                /* 卡片背景 */
+    --border-radius-large: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-light);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary-blue);
+    transition: color 0.3s, opacity 0.3s; 
+}
+a:hover {
+    color: var(--color-primary-blue);
+}
+
+/* ========================================= */
+/* --- 導覽列 (Navbar) 與固定按鈕 --- */
+/* ========================================= */
+.navbar {
+    background-color: var(--color-primary-blue);
+    padding: 15px 0;
+    color: white;
+    transition: box-shadow 0.3s ease;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.navbar nav a {
+    color: white;
+    margin-left: 20px;
+}
+
+.navbar nav a:hover {
+    opacity: 0.8;
+}
+
+.nav-btn-accent {
+    background-color: var(--color-accent-yellow);
+    color: var(--color-text-dark) !important;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+.nav-btn-accent:hover {
+    background-color: #ffda6a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.nav-btn-accent:active {
+    transform: scale(0.98);
+}
+
+/* 固定動作按鈕 (Home Button) */
+.fixed-action-btn {
+    position: fixed;
+    bottom: 30px; 
+    right: 20px; 
+    z-index: 1000; 
+    width: auto; 
+    min-width: 90px;
+    height: 50px; 
+    padding: 0 15px; 
+    border-radius: 50px; 
+    background-color: var(--color-accent-yellow); 
+    color: var(--color-primary-blue) !important; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    font-size: 1rem; 
+    font-weight: 700; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.fixed-action-btn .home-icon {
+    font-size: 1.3rem; 
+    margin-right: 8px; 
+}
+
+.fixed-action-btn:hover {
+    background-color: #ffda6a; 
+    transform: translateY(-3px) scale(1.05); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fixed-action-btn:active {
+    transform: scale(0.95); 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-out;
+}
+
+/* ========================================= */
+/* --- 主視覺區 (Hero Section) 與標題切換 --- */
+/* ========================================= */
+.hero-section {
+    background: linear-gradient(135deg, var(--color-bg-light) 60%, rgba(255, 193, 7, 0.2) 100%);
+    padding: 60px 0 40px;
+    margin-bottom: 30px;
+}
+
+.hero-section h1 {
+    display: flex; 
+    align-items: flex-end; 
+    font-size: 2.5rem; 
+    font-weight: 900;
+    color: var(--color-primary-blue);
+    margin-bottom: 10px;
+}
+
+.report-switcher {
+    display: flex;
+    align-items: flex-end; 
+    color: #666; 
+}
+
+.report-tab {
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: #999; 
+    transition: font-size 0.3s ease-in-out, color 0.3s ease, opacity 0.3s, transform 0.3s; 
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1; 
+}
+
+.report-tab:hover {
+    color: var(--color-primary-blue);
+    opacity: 0.8;
+    transform: translateY(-2px); 
+}
+
+.separator {
+    font-size: 1.5rem; 
+    font-weight: 900;
+    color: #ccc;
+    margin: 0 10px;
+    line-height: 1; 
+}
+
+.report-tab.current-topic {
+    font-size: 2.5rem; 
+    font-weight: 900;
+    color: var(--color-primary-blue); 
+    cursor: default; 
+    text-decoration: none;
+    pointer-events: none; 
+    transition: font-size 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.3s; 
+}
+
+.hero-section p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* ========================================= */
+/* --- 資訊重點區 (Info Highlights) --- */
+/* ========================================= */
+.info-highlights {
+    padding-top: 10px;
+}
+.info-highlights .container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.term-badge {
+    background-color: var(--color-secondary-green);
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-large);
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* Notice Card - 須知卡片 */
+.notice-card {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primary-blue);
+    color: white;
+    padding: 20px 30px;
+    border-radius: var(--border-radius-large);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s; 
+    transform: translateZ(0); 
+    border: 1px solid transparent; 
+}
+
+.notice-card:hover {
+    transform:  translateY(-3px) translateZ(0);
+    /* 發光效果 */
+    box-shadow: 0 0 0 3px var(--color-accent-yellow),
+                0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.notice-card:active {
+    transform: scale(0.99); 
+}
+
+.notice-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.notice-card p {
+    opacity: 0.9;
+    color: #ffffff;
+}
+
+.notice-card .fa-download {
+    font-size: 1.5rem;
+    color: var(--color-accent-yellow); 
+    transition: transform 0.5s ease; 
+}
+
+.notice-card:hover .fa-download {
+    transform: translateY(5px); 
+}
+
+/* ========================================= */
+/* --- 週報卡片網格 (Weekly Reports) --- */
+/* ========================================= */
+.weekly-reports {
+    padding: 20px 0 60px;
+}
+
+.weekly-reports h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    border-left: 5px solid var(--color-accent-yellow); 
+    padding-left: 10px;
+    font-weight: 700;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.report-card {
+    position: relative; 
+    display: block;
+    background-color: var(--color-card-bg);
+    border-radius: var(--border-radius-large);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s; 
+    color: var(--color-text-dark);
+}
+
+.report-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    color: var(--color-primary-blue); 
+}
+
+.report-card:active {
+    transform: scale(0.98); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease-out; 
+}
+
+.week-number {
+    width: 80px;
+    height: 80px;
+    background-color: var(--color-primary-blue);
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: white;
+    border: 3px solid var(--color-accent-yellow); 
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* PDF 連結專用樣式 */
+.report-card.has-pdf {
+    border: 2px solid var(--color-secondary-green); 
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.3s, box-shadow 0.3s; 
+}
+
+.report-card.has-pdf:hover {
+    border-color: var(--color-primary-blue); 
+}
+
+.report-card.has-pdf:hover .week-number {
+    background-color: var(--color-secondary-green); 
+    border-color: var(--color-primary-blue); 
+}
+
+.pdf-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--color-secondary-green);
+    font-size: 1.2rem;
+    opacity: 0.9;
+    transition: transform 0.3s; 
+}
+
+.report-card.has-pdf:hover .pdf-icon {
+    transform: rotate(5deg); 
+}
+
+/* ========================================= */
+/* --- 頁尾 (Footer) --- */
+/* ========================================= */
+.footer {
+    background-color: var(--color-text-dark);
+    color: #bbb;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+
+/* ========================================= */
+/* --- 響應式設計 (Media Queries) --- */
+/* ========================================= */
+@media (max-width: 992px) {
+    .report-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    /* 導覽列調整 */
+    .navbar .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .navbar nav {
+        margin-top: 10px;
+    }
+    .navbar nav a {
+        margin: 0 8px;
+    }
+
+    /* 主標題切換調整 */
+    .report-tab, .separator {
+        font-size: 1.2rem; 
+    }
+    
+    .report-tab.current-topic {
+        font-size: 1.8rem;
+    }
+
+    /* 資訊區調整 */
+    .info-highlights .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .term-badge {
+        text-align: center;
+        width: 100%;
+    }
+    
+    /* 卡片網格調整 */
+    .report-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}
+/* ========================================= */
+/* --- 下拉選單樣式 (Dropdown Menu Styles) --- */
+/* ========================================= */
+.dropdown {
+    position: relative;
+    display: inline-block; 
+}
+
+/* 將 nav-btn-accent 替換為 button 元素 */
+.dropdown-toggle {
+    /* 重置 button 預設樣式 */
+    background-color: var(--color-accent-yellow);
+    color: var(--color-text-dark) !important;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border: none; /* 移除邊框 */
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-toggle:hover {
+    background-color: #ffda6a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.dropdown-toggle:active {
+    transform: scale(0.98);
+}
+
+
+.dropdown-toggle i {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+/* 下拉選單內容區 */
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* 確保在按鈕下方 */
+    right: 0; /* 讓選單靠右對齊按鈕 */
+    min-width: 300px; /* 確保內容有足夠空間 */
+    background-color: var(--color-card-bg); /* 白色背景 */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: var(--border-radius-large);
+    padding: 10px 0;
+    z-index: 2000; /* 確保選單在最上層 */
+    
+    /* 預設隱藏，使用 JS 控制顯示 */
+    display: none; 
+    
+    /* 動畫效果 */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 顯示時的狀態 */
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 按鈕點擊時箭頭旋轉 */
+.dropdown-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+/* 選單標題樣式 (紙本/線上) */
+.dropdown-header {
+    font-weight: 700;
+    color: var(--color-primary-blue);
+    padding: 8px 15px;
+    margin-top: 5px;
+    border-bottom: 2px solid var(--color-accent-yellow);
+    font-size: 1rem;
+}
+
+/* 選單項目連結樣式 */
+.dropdown-item {
+    display: block;
+    padding: 8px 15px;
+    color: var(--color-text-dark) !important;
+    text-align: left;
+    white-space: nowrap; 
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-bg-light);
+    color: var(--color-primary-blue) !important;
+}
+
+.dropdown-item-online {
+    color: var(--color-secondary-green) !important; /* 線上表格使用綠色 */
+    font-weight: 700;
+}

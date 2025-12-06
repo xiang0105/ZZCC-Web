@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺北市中正社區大學</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+</head>
+<body>
+
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#top"><img src="./images/logo.png" alt=""></a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#features">校園特色</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#news">最新消息</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#courses">課程資訊</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#links">外部連結</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#contact">聯絡我們</a>
+                        </li>
+                    </ul>
+                    <a href="./pages/about/" class="btn btn-primary rounded-pill more-information">了解更多<i class="fa-solid fa-arrow-pointer ms-2"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <section id="home">
+            <div class="container">
+                <div class="main-heading">探索知識 & 無限可能</div>
+                <div class="background-box"></div>
+                <img src="./images/home/001.png" alt="">
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="container">
+                <div class="title">校園特色</div>
+                <div class="subtitle">四大核心優勢&成就您的終身學習之路</div>
+                <hr>
+                <div class="features-list row">
+                    <div class="col-lg-3 features-item">
+                        <i class="fa-solid fa-book-open"></i>
+                        <div class="features-title">多元跨域課程</div>
+                        <div class="features-content">
+                            從人文藝術、生活技能到現代科技，提供數百門豐富課程，無論是培養第二專長或陶冶性情，都能在此找到熱情所在。
+                        </div>
+                    </div>
+                    <div class="col-lg-3 features-item">
+                        <i class="fa-solid fa-landmark"></i>
+                        <div class="features-title">深耕在地文化</div>
+                        <div class="features-content">
+                            位於台北政經核心與歷史城區，我們致力於文史走讀與社區營造，帶您重新認識中正區的古蹟韻味與巷弄故事。
+                        </div>
+                    </div>
+                    <div class="col-lg-3 features-item">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <div class="features-title">優質師資陣容</div>
+                        <div class="features-content">
+                            匯聚學界教授與業界職人，提供專業且具啟發性的教學內容，確保您獲得最扎實的知識與技能。
+                        </div>
+                    </div>
+                    <div class="col-lg-3 features-item">
+                        <i class="fa-solid fa-train-subway"></i>
+                        <div class="features-title">交通樞紐地段</div>
+                        <div class="features-content">
+                            鄰近捷運站與重要公車路線，位於台北市中心，交通四通八達，讓下班、退休後的進修之路輕鬆無負擔。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="news">
+            <div class="container">
+                <div class="title">最新消息</div>
+                <div class="subtitle">掌握第一手課程資訊，不錯過校園每一刻精彩</div>
+                <div class="news-list row"></div>
+            </div>
+        </section>
+
+        <section id="courses">
+            <div class="container">
+                <div class="title">課程資訊</div>
+                <div class="subtitle">掌握最新開課訊息，不錯過任何學習機會</div>
+                <div class="courses-list"></div>
+                <div class="d-flex justify-content-end mt-4">
+                    <button class="btn btn-primary courses-prev ms-2" onclick="course_page-=1;renderCourses()">Prev</button>
+                    <button class="btn btn-primary courses-next ms-2" onclick="course_page+=1;renderCourses()">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="campus-view">
+            <div class="container-fluid"></div>
+        </section>
+
+        <section id="links">
+            <div class="container-fluid">
+                <div class="title">外部連結</div>
+                <div class="subtitle">串聯政府與社群資源，拓展全方位學習網絡</div>
+                    
+
+                <div class="carousel-container">
+                    <button class="nav-btn prev-btn" onclick="scrollLinks(-1)">&#10094;</button>
+
+                    <div class="carousel-track" id="linkTrack"></div>
+
+                    <button class="nav-btn next-btn" onclick="scrollLinks(1)">&#10095;</button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <div class="container">
+                <div class="title">聯絡我們</div>
+                <div class="subtitle">對課程內容或報名流程有疑問？歡迎填寫線上表單，我們將盡快回復您。</div>
+                <button class="btn btn-primary mt-4" id="myInput" data-bs-toggle="modal" data-bs-target="#myModal">填寫表單</button>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <div class="container">
+                <div class="footer-link">
+                    <a href="./pages/calendar/">校園行事曆</a>
+                    <a href="./pages/reports/">校園週報</a>
+                    <a href="./pages/resources/">表單下載</a>
+                    <a href="./pages/support/">常見問答</a>
+                    <a href="./pages/curriculum/">課程總覽</a>
+                </div>
+                <div class="footer-info">
+                    <div class="mt-4"><i class="me-3 fa-solid fa-location-dot"></i>100 臺北市中正區濟南路一段6號 (開南中學內)</div>
+                    <div class="mt-4"><i class="me-3 fa-solid fa-phone"></i>(02) 2327-8441</div>
+                    <div class="mt-4"><i class="me-3 fa-solid fa-envelope"></i>cccc@knvs.tp.edu.tw</div>
+                    <div class="mt-4"><i class="me-3 fa-solid fa-clock"></i>週一至週五 10:00 - 20:00
+                </div>
+                <div class="Copyright mt-4">Copyright &copy; 2025 Community College. All Rights Reserved. MuXiang 版權所有 翻印必究</div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">聯絡我們</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" placeholder="請輸入您的姓名">
+                </div>
+                <div class="input-group mt-3">
+                    <label for="email">電子郵件</label>
+                    <input type="email" class="form-control" id="email" placeholder="請輸入您的電子郵件">
+                </div>
+                <div class="input-group mt-3">
+                    <label for="message">訊息內容</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="請輸入您的訊息"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="alert('已送出 請等待我們工作天1~3回覆您!!!')">送出</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/index.js"></script>
+
+</body>
+</html>
