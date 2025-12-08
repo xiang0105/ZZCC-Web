@@ -11,20 +11,17 @@
 </head>
 <body>
 
-    <header>
-        <div class="container d-flex">
-            <div class="logo">
-                <i class="fa-solid fa-graduation-cap logo-icon"></i>
-                <div class="logo-text">
-                    <span>臺北市中正社區大學</span>
-                    <small>Zhongzheng Community College Taipei City</small>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#top"><img src="../../images/logo.png" alt=""></a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a href="../../index.html" class="btn btn-primary ms-auto">回首頁</a>
                 </div>
             </div>
-    
-            <a href="../../index.html" class="btn btn-primary rounded-pill ms-auto">回首頁
-            </a>
-        </div>
-    </header>
+        </nav>
 
     <main>
         <h1 class="page-title">表單下載</h1>
@@ -34,71 +31,8 @@
                 <i class="fa-solid fa-file-pdf"></i>
                 <h2>紙本表格下載</h2>
             </div>
-            <div class="download-list">
-                <a href="./files/114-2期退費申請書.pdf" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">114-2期退費申請單</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/校外教學(實習)記錄單.docx" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">校外教學(實習)記錄單</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/教與學體驗分享單1.docx" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">教學與體驗分享單</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/講師資料表.doc" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">講師資料表</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/刊物提案單.doc" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">刊物提案單</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/中正社大公民週講座心得表(空白).doc" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">公民素養週講座心得表</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/助教申請資料表.doc" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">助教申請資料表</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-
-                <a href="./files/臺北市中正社區大學講座調查表.doc" class="download-item">
-                    <div class="file-info">
-                        <i class="fa-regular fa-file-lines download-icon"></i>
-                        <span class="file-name">講座調查表</span>
-                    </div>
-                    <i class="fa-solid fa-download download-icon"></i>
-                </a>
-            </div>
+            
+            <div class="download-list"></div>
         </section>
 
         <section id="online-forms">
@@ -130,11 +64,11 @@
     <footer id="footer">
         <div class="container">
             <div class="footer-link">
+                <a href="../curriculum/">課程總覽</a>
                 <a href="../calendar/">校園行事曆</a>
                 <a href="../reports/">校園週報</a>
                 <a href="../resources/">表單下載</a>
                 <a href="../support/">常見問答</a>
-                <a href="../curriculum/">課程總覽</a>
             </div>
             <div class="footer-info">
                 <div class="mt-4"><i class="me-3 fa-solid fa-location-dot"></i>100 臺北市中正區濟南路一段6號 (開南中學內)</div>
@@ -147,7 +81,7 @@
     </footer>
 
     
-
+    <script src="./js/index.js"></script>
     <script src="./js/bootstrap.js"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
     <!-- <script src="./js/index.js"></script> -->

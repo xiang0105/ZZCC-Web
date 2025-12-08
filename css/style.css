@@ -2,11 +2,6 @@
     position: relative;
     scroll-behavior: smooth;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    
-    -webkit-user-select: none; /* Chrome, Safari, Edge */
-    -moz-user-select: none;    /* Firefox */
-    -ms-user-select: none;     /* IE 10+ */
-    user-select: none;         /* 標準語法 */
 
     .title{
         font-size: 6vh;
@@ -17,6 +12,15 @@
         font-size: 2vh;
         font-weight: bolder;
         color: #0008;
+    }
+
+    @media (max-width:1024px) {
+        .title{
+            font-size: 5vh;
+        }
+        .subtitle{
+            font-size: 1.5vh;
+        }
     }
 
     @media (max-width:768px) {
@@ -63,9 +67,18 @@ nav{
         color: #0b408e !important;
     }
 
+    @media (max-width: 1024px) {
+
+        .navbar-nav{
+            padding: 8px 18px;
+        }
+    }
+
     @media (max-width : 768px) {
+
         .more-information{
             display: none;
+            box-shadow: 0 4px 16px rgba(23,107,155,0.18);
         }
     }
 
@@ -105,6 +118,23 @@ nav{
         width: 70%;
         border: solid 1rem #000;
         border-radius: 16px;
+    }
+
+    @media (max-width: 1024px) {
+
+        max-height: 50vh;
+        padding-top: 12vh;
+
+        .main-heading{
+            font-size: 6vh;
+        }
+
+        .background-box{
+
+            height: 20vh;
+            margin-top: 15vh;
+            border-radius: 16px;
+        }
     }
 
     @media (max-width : 768px) {
@@ -212,6 +242,18 @@ nav{
         background-size: cover;
     }
 
+    @media (max-width: 1024px) {
+
+        padding-top: 8vh;
+
+        .news-img{
+            height: 15vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+    }
+
     @media (max-width : 768px) {
 
         padding-top: 5vh;
@@ -221,7 +263,13 @@ nav{
         }
 
         .news-list{
-            padding: 0 1rem;
+            padding: 0 2rem;
+        }
+
+        .news-img{
+            height: 26vh;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     }
 
@@ -252,6 +300,23 @@ nav{
         color: #0b408e;
     }
 
+    .courses-number{
+        min-width: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+
+        padding-top: 8vh;
+
+        .courses-list{
+            min-height: 20vh;
+        }
+    }
+
     @media (max-width : 768px) {
 
         padding-top: 5vh;
@@ -261,8 +326,8 @@ nav{
         }
 
         .courses-list{
-            padding: 0 1rem;
-            height: 40vh;
+            padding: 0 0.8rem;
+            min-height: 30vh;
         }
     }
 
@@ -280,9 +345,27 @@ nav{
         background-size: cover;
     }
 
+    @media (max-width : 1024px) {
+
+        padding-top: 5vh;
+
+        .container-fluid{
+            min-height: auto;
+            background-position: right;
+            aspect-ratio: 958 / 439;
+        }
+
+    }
+
     @media (max-width : 768px) {
 
         padding-top: 5vh;
+
+        .container-fluid{
+            min-height: auto;
+            background-position: right;
+            aspect-ratio: 958 / 439;
+        }
 
     }
 }
@@ -292,7 +375,11 @@ nav{
     padding-top: 15vh;
     
     .container-fluid{
-        width: 75%;
+        /* width: 75%; */
+
+        width: 95%;          /* 小螢幕時佔滿 */
+        max-width: 1400px;   /* 大螢幕時限制最大寬度 */
+        margin: 0 auto;      /* 置中 */
     }
 
     .title,.subtitle{
@@ -300,36 +387,39 @@ nav{
     }
 
     .carousel-container {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
         position: relative; /* 為了讓按鈕定位 */
         padding: 0 50px;    /* 左右留空間給按鈕 */
+        box-sizing: border-box;
     }
 
     
     .carousel-track {
-        display: flex;       /* 改成 Flex 橫向排列 */
+        display: flex;
         gap: 24px;           /* 卡片之間的間距 */
-        overflow-x: auto;    /* 允許橫向捲動 */
+        overflow-x: hidden;    /* 允許橫向捲動 */
         scroll-behavior: smooth; /* 平滑捲動效果 */
-        padding: 20px 10px;  /* 上下留點空間給陰影 */
-        /* 隱藏預設捲軸 (讓它看起來像輪播) */
-        scrollbar-width: none; /* Firefox */
+        padding: 20px 0;  /* 上下留點空間給陰影 */
+        scroll-snap-type: x mandatory;
     }
+
     .carousel-track::-webkit-scrollbar {
         display: none; /* Chrome, Safari */
     }
 
     .quick-menu-card {
+        flex: 0 0 calc((100% - (24px * 3)) / 4);
         position: relative;
         display: block;
-        height: 220px;
-        width: 300px;
-        min-width: 300px;
+        aspect-ratio: 300 / 220;
+        scroll-snap-align: start;
         border-radius: 20px;
         overflow: hidden;
         text-decoration: none;
-        flex-shrink: 0;
         cursor: pointer;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.0.8);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* 修正透明度寫法 */
         transition: transform 0.3s ease;
     }
 
@@ -372,6 +462,7 @@ nav{
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         transition: transform 0.5s ease;
     }
 
@@ -424,29 +515,82 @@ nav{
     .quick-menu-card:hover .card-title { opacity: 0; transform: translateY(-20px); transition: all 0.25s ease; }
 
     .quick-menu-card .card-description p { color: #fff; margin: 0; font-size: 14px; line-height: 1.6; }
-
-    .quick-menu-card {
-        width: 300px; /* 對應 JS 的 300 */
-    }
-    .carousel-track {
-        gap: 24px;   /* 對應 JS 的 24 */
-    }
     
+    @media (max-width : 1024px) {
+
+        padding-top: 10vh;
+
+        .quick-menu-card {
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        .quick-menu-card .card-number {
+            font-size: 20px;
+            top: 10px;
+            left: 10px;
+        }
+
+        .quick-menu-card .card-title {
+            font-size: 12px;
+            left: 10px;
+            bottom: 12px;
+           
+        }
+
+        .quick-menu-card .card-description {
+            display: none;
+        }
+
+        .quick-menu-card:hover .card-number,
+        .quick-menu-card:hover .card-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     @media (max-width : 768px) {
 
         padding-top: 5vh;
+
+        .carousel-container {
+            padding: 0 45px;
+        }
         
         .container-fluid{
             width: 100%;
         }
 
         .quick-menu-card {
-            width: 150px; /* ⚠️ 這裡的數字要跟 JS 裡的 isMobile ? 250 一樣 */
+            flex: 0 0 calc((100% - 12px) / 2);
+            height: auto;
+            box-shadow: 0 5px 5px rgba(0,0,0,0.15);
         }
         .carousel-track {
-            gap: 16px;    /* ⚠️ 這裡的數字要跟 JS 裡的 gap 一樣 */
+            gap: 12px;
         }
-            
+        
+        .quick-menu-card .card-number {
+            font-size: 18px;
+            top: 10px;
+            left: 10px;
+        }
+
+        .quick-menu-card .card-title {
+            font-size: 10px;
+            left: 10px;
+            bottom: 12px;
+        }
+
+        .quick-menu-card .card-description {
+            display: none;
+        }
+
+        .quick-menu-card:hover .card-number,
+        .quick-menu-card:hover .card-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
     }
 }
 
@@ -477,6 +621,11 @@ nav{
         padding: 1rem;
     }
 
+    @media (max-width : 1024px) {
+
+        padding-top: 10vh;
+
+    }
     
     @media (max-width : 768px) {
 
@@ -528,12 +677,69 @@ nav{
         padding: .5rem 0;
     }
 
-    .input-group{
-        display: flex;
-        flex-direction: column;
+    .form-control-box {
+        position: relative; /* 確保內部絕對定位是參考這裡 */
+        padding-bottom: 25px; /* 留空間給錯誤訊息 */
 
-        .form-control{
-            width: 100%;
+        /* 1. 錯誤訊息文字 (預設隱藏) */
+        small {
+            visibility: hidden;
+            color: #e74c3c;
+            font-size: 0.875rem;
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            font-weight: bold;
+            z-index: 10;
+            background-color: #fff;
+            padding-right: 5px;
+        }
+
+        /* 2. Icon (預設隱藏) */
+        .success-icon,
+        .error-icon {
+            position: absolute;
+            top: 40px; /* 這裡可能需要根據您的 label 高度微調 */
+            right: 15px;
+            visibility: hidden;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* --- 成功狀態 (Green) --- */
+        /* & 代表 "連在一起"，編譯後會變成 .form-control-box.success */
+        &.success {
+            input, textarea {
+                border-color: #2ecc71;
+                border-width: 2px;
+            }
+            
+            .success-icon {
+                visibility: visible; /* 您原本代碼多打了一個 t (visiblet)，我幫您修正了 */
+                color: #2ecc71;
+            }
+            
+            small {
+                visibility: hidden;
+            }
+        }
+
+        /* --- 失敗狀態 (Red) --- */
+        /* 編譯後會變成 .form-control-box.error */
+        &.error {
+            input, textarea {
+                border-color: #e74c3c;
+                border-width: 2px;
+            }
+            
+            .error-icon {
+                visibility: visible;
+                color: #e74c3c;
+            }
+            
+            small {
+                visibility: visible;
+            }
         }
     }
 }

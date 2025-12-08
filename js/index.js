@@ -1,3 +1,23 @@
+function checkScreenSize() {
+    // 取得目標元素
+    const navItem = document.getElementById('mobile-only-nav');
+    
+    // 判斷螢幕寬度是否小於等於 768px
+    if (window.innerWidth <= 768) {
+        // 手機版：顯示 (移除 display: none)
+        navItem.style.display = 'block'; 
+    } else {
+        // 電腦版：隱藏
+        navItem.style.display = 'none';
+    }
+}
+
+// 1. 網頁載入時執行一次
+window.addEventListener('load', checkScreenSize);
+
+// 2. 當視窗大小改變時，重新執行
+window.addEventListener('resize', checkScreenSize);
+
 var news_list = [
   {
     img: "./images/news/001.png",
@@ -46,6 +66,7 @@ const newsContainer = document.querySelector(".news-list");
 news_list.forEach((news) => {
   const newsItem = document.createElement("div");
   newsItem.classList.add("col-lg-3");
+  newsItem.classList.add("col-md-4");
     newsItem.innerHTML = `
     <div class="card mb-4">
         <div class="news-img" style="background-image: url('${news.img}')"></div>
@@ -118,7 +139,7 @@ function renderCourses() {
         
         courseItem.innerHTML = `
         <div class="mb-4">
-            <a class="courses-title" href="${course.link}">${globalIndex.toString().padStart(2, '0')} : ${course.content}</a>
+            <a class="courses-title d-flex" href="${course.link}"><span class="courses-number">${globalIndex.toString().padStart(2, '0')} : </span><div>${course.content}</div></a>
             <hr>
         </div>
         `;
@@ -214,57 +235,209 @@ window.scrollLinks = function (direction) {
     var track = document.getElementById("linkTrack");
     if (!track) return;
 
-    // 1. 偵測是否為手機版 (螢幕寬度 <= 768px)
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    // 1. 取得基本數據
+    var card = track.querySelector('.quick-menu-card');
+    if (!card) return;
 
-    // 2. 定義寬度與間距 (利用三元運算子切換數值)
-    // ⚠️ 請修改下方的數值，讓它跟您的 CSS 設定一模一樣
-    const cardWidth = isMobile ? 150 : 300; // 手機版卡片寬 : 電腦版卡片寬
-    const gap = isMobile ? 16 : 24;         // 手機版間距 : 電腦版間距
+    var cardWidth = card.offsetWidth; 
+    var style = window.getComputedStyle(track);
+    var gap = parseFloat(style.gap) || 24;
+    var scrollAmount = cardWidth + gap; // 每次滑動的距離
 
-    // 計算一次要捲動的距離
-    const scrollAmount = cardWidth + gap;
+    // 2. 計算「半程」距離 (因為我們複製了一份，所以總長度的一半就是一組的長度)
+    // 這裡用 scrollWidth (總內容寬) 除以 2
+    var oneSetWidth = track.scrollWidth / 2;
 
-    // 計算「單組內容」的總長度
-    // (因為 scrollWidth 會根據 CSS 自動變小，所以這行不需要改，它會自動抓到正確的總長度)
-    const singleSetWidth = track.scrollWidth / 2;
-
+    // 3. 【關鍵魔法】：在滑動「之前」，先檢查是否需要「瞬移」
+    
     if (direction === 1) {
         // ------------ 向右 (Next) ------------
 
-        // 檢查：如果已經捲到「第二組」的範圍了 (容許 10px 誤差)
-        if (track.scrollLeft >= singleSetWidth - 10) {
-            track.style.scrollBehavior = "auto"; // 關閉動畫
-            track.scrollLeft -= singleSetWidth;  // 瞬間彈回起點
+        // 如果目前位置已經超過(或等於)第一組的長度
+        // 代表使用者已經看得到第二組的卡片了
+        // 我們就把位置「瞬間」減去一組的長度，回到第一組的相對位置
+        if (track.scrollLeft >= oneSetWidth) {
+            track.style.scrollBehavior = "auto"; // 關閉動畫 (瞬間)
+            track.scrollLeft -= oneSetWidth;     // 瞬移回前面
         }
 
-        // 恢復平滑捲動，並執行真正的往右滑
+        // 瞬移完(或不用瞬移)之後，再開啟動畫，漂亮地往右滑
+        // 加上 setTimeout 確保瞬移已經完成
         setTimeout(() => {
             track.style.scrollBehavior = "smooth";
-            track.scrollBy({ left: scrollAmount });
-        }, 10);
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }, 0);
 
     } else {
         // ------------ 向左 (Prev) ------------
 
-        // 檢查：如果已經在最左邊
+        // 如果目前位置在最開頭 (0)
+        // 我們先把位置「瞬間」加到第二組的開頭
         if (track.scrollLeft <= 0) {
-            track.style.scrollBehavior = "auto"; // 關閉動畫
-            track.scrollLeft += singleSetWidth;  // 瞬間彈到第二組開頭
+            track.style.scrollBehavior = "auto"; // 關閉動畫 (瞬間)
+            track.scrollLeft += oneSetWidth;     // 瞬移去後面
         }
 
-        // 恢復平滑捲動，並執行真正的往左滑
+        // 瞬移完之後，再開啟動畫，漂亮地往左滑
         setTimeout(() => {
             track.style.scrollBehavior = "smooth";
-            track.scrollBy({ left: -scrollAmount });
-        }, 10);
+            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }, 0);
     }
 };
 
-var myModal = document.getElementById('myModal')
-var myInput = document.getElementById('myInput')
+// 監聽視窗大小改變，自動對齊卡片 (這段建議保留)
+window.addEventListener('resize', function() {
+    var track = document.getElementById("linkTrack");
+    if (!track) return;
+    
+    // 取得卡片寬度
+    var card = track.querySelector('.quick-menu-card');
+    if(card) {
+        track.style.scrollBehavior = "auto";
+        var cardWidth = card.offsetWidth;
+        var gap = 24; 
+        var index = Math.round(track.scrollLeft / (cardWidth + gap));
+        track.scrollLeft = index * (cardWidth + gap);
+        
+        setTimeout(() => {
+            track.style.scrollBehavior = "smooth";
+        }, 100);
+    }
+});
 
-myModal.addEventListener('shown.bs.modal', function () {
-  myInput.focus();
-  console.log("Modal is shown");
-})
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("程式開始載入..."); // 檢查點 1
+
+    // 1. 選取元素
+    const submitBtn = document.getElementById('submitBtn');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const myModalEl = document.getElementById('myModal');
+
+    // 2. 初始化 Bootstrap Modal (確保變數只宣告一次)
+    let bsModal = null;
+    if (typeof bootstrap !== 'undefined' && myModalEl) {
+        bsModal = new bootstrap.Modal(myModalEl);
+        
+        // 修正原本的 focus 功能：當 Modal 開啟後，自動聚焦在「姓名」欄位
+        myModalEl.addEventListener('shown.bs.modal', function () {
+            if(nameInput) nameInput.focus();
+        });
+    }
+
+    // ==========================================
+    //  即時輸入監聽 (修正重複程式碼)
+    // ==========================================
+    // 把這三個欄位放在陣列裡一起處理，程式碼更乾淨
+    [nameInput, emailInput, messageInput].forEach(input => {
+        if (input) {
+            input.addEventListener('input', () => {
+                // console.log("正在輸入...", input.id); // 檢查點 2 (想看可以打開)
+                validateField(input);
+            });
+        }
+    });
+
+    // ==========================================
+    //  送出按鈕監聽
+    // ==========================================
+    if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log("按下送出按鈕"); // 檢查點 3
+            
+            // 按下送出時，強制檢查所有欄位
+            const isNameValid = validateField(nameInput);
+            const isEmailValid = validateField(emailInput);
+            const isMessageValid = validateField(messageInput);
+
+            if (isNameValid && isEmailValid && isMessageValid) {
+                alert('已送出！請等待我們工作天 1~3 日回覆您！');
+                
+                // 清空表單
+                document.getElementById('contactForm').reset();
+                removeClasses();
+                
+                // 關閉 Modal
+                if (bsModal) bsModal.hide();
+            } else {
+                console.log("驗證失敗，不送出");
+            }
+        });
+    }
+
+    // 3. 通用的單一欄位檢查函式
+    function validateField(input) {
+        if (!input) return false; // 防止找不到元素報錯
+
+        const value = input.value.trim();
+        const id = input.id;
+        let isOk = true;
+        let errorMsg = '';
+
+        // 根據 ID 判斷要檢查什麼
+        if (id === 'name') {
+            if (value === '') {
+                errorMsg = '姓名不能為空';
+                isOk = false;
+            }
+        } else if (id === 'email') {
+            if (value === '') {
+                errorMsg = '電子郵件不能為空';
+                isOk = false;
+            } else if (!isEmail(value)) {
+                errorMsg = '電子郵件格式不正確';
+                isOk = false;
+            }
+        } else if (id === 'message') {
+            if (value === '') {
+                errorMsg = '訊息內容不能為空';
+                isOk = false;
+            }
+        }
+
+        // 根據結果顯示紅/綠燈
+        if (isOk) {
+            setSuccess(input);
+            return true;
+        } else {
+            setError(input, errorMsg);
+            return false;
+        }
+    }
+
+    // 設定錯誤狀態
+    function setError(input, message) {
+        const formBox = input.parentElement;
+        const small = formBox.querySelector('small');
+        if(small) small.innerText = message;
+        
+        formBox.classList.add('error');
+        formBox.classList.remove('success');
+    }
+
+    // 設定成功狀態
+    function setSuccess(input) {
+        const formBox = input.parentElement;
+        formBox.classList.add('success');
+        formBox.classList.remove('error');
+    }
+
+    // 重置樣式
+    function removeClasses() {
+        [nameInput, emailInput, messageInput].forEach(input => {
+            if(input) {
+                const formBox = input.parentElement;
+                formBox.classList.remove('success');
+                formBox.classList.remove('error');
+            }
+        });
+    }
+
+    // Email 正則表達式
+    function isEmail(email) {
+        return /^[^@]+@[^@]+\.[^@]+$/.test(email);
+    }
+});

@@ -107,8 +107,9 @@ main {
 }
 
 .page-title {
+    padding-top: 65px;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 0;
     color: var(--primary-blue);
     font-size: 2rem;
     position: relative;
@@ -129,21 +130,22 @@ main {
 
 .download-section {
     background: #fff;
-    border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color); 可以考慮拿掉外框，讓視覺更輕盈，看您喜好 */
     border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 30px;
+    padding: 30px; /* 這裡維持或是加大到 40px */
+    margin-bottom: 50px; /* 加大這裡 */
     box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
 .section-header {
+    padding-top: 50px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 15px; /* Icon 跟文字的距離也稍微拉開 */
+    margin-bottom: 35px; /* 加大這裡 */
     color: var(--primary-blue);
     border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
+    padding-bottom: 15px; /* 下底線距離文字遠一點 */
 }
 
 .section-header h2 {
@@ -152,8 +154,9 @@ main {
 
 .download-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
+    /* minmax 改為 320px 可以避免一行塞太多個，看起來會更寬鬆 */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+    gap: 30px; /* 這裡加大 */
 }
 
 .download-item {
@@ -161,9 +164,9 @@ main {
     align-items: center;
     justify-content: space-between;
     background-color: var(--bg-light);
-    padding: 15px 20px;
-    border-radius: 6px;
-    border-left: 4px solid var(--accent-blue);
+    padding: 20px 25px; /* 這裡加大 */
+    border-radius: 8px; /* 圓角也可以稍微大一點 */
+    border-left: 5px solid var(--accent-blue); /* 左邊線條稍微加粗 */
     transition: all 0.2s ease;
 }
 

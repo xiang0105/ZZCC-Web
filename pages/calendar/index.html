@@ -30,7 +30,6 @@
     <main>
         <div class="page-header">
             <h1>114-2期 校務行事曆</h1>
-            
             <div class="legend">
                 <div class="legend-item"><span class="dot l-blue"></span> 行政/開課</div>
                 <div class="legend-item"><span class="dot l-green"></span> 公民素養週</div>
@@ -40,310 +39,40 @@
         </div>
 
         <div class="month-tabs">
-            <button class="tab-btn active" onclick="showMonth('sep')">九月 Sep</button>
-            <button class="tab-btn" onclick="showMonth('oct')">十月 Oct</button>
-            <button class="tab-btn" onclick="showMonth('nov')">十一月 Nov</button>
-            <button class="tab-btn" onclick="showMonth('dec')">十二月 Dec</button>
-            <button class="tab-btn" onclick="showMonth('jan')">一月 Jan</button>
+            <button class="tab-btn active" onclick="changeMonth(9, 2025)">九月 Sep</button>
+            <button class="tab-btn" onclick="changeMonth(10, 2025)">十月 Oct</button>
+            <button class="tab-btn" onclick="changeMonth(11, 2025)">十一月 Nov</button>
+            <button class="tab-btn" onclick="changeMonth(12, 2025)">十二月 Dec</button>
+            <button class="tab-btn" onclick="changeMonth(1, 2026)">一月 Jan</button>
         </div>
 
-        <div id="sep" class="schedule-container active">
+        <div id="dynamic-schedule" class="schedule-container active">
             <div class="calendar-wrapper">
-                <div class="calendar-title">2025年 9月</div>
+                <div class="calendar-title" id="calendar-title">2025年 9月</div>
                 <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
-                <div class="days-grid">
-                    <div class="day empty"></div>
-                    <div class="day"><span class="week-tag">W1</span>1<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day weekend">6</div>
-                    <div class="day weekend">7</div>
-                    <div class="day"><span class="week-tag">W2</span>8</div>
-                    <div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day weekend">13</div>
-                    <div class="day weekend">14</div>
-                    <div class="day"><span class="week-tag">W3</span>15<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">16</div><div class="day">17</div><div class="day">18</div>
-                    <div class="day">19<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day weekend">20<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day weekend">21</div>
-                    <div class="day"><span class="week-tag">W4</span>22</div>
-                    <div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
-                    <div class="day holiday-mode weekend">27<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode weekend">28<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode"><span class="week-tag">W5</span>29<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day">30<div class="event-dots"><span class="dot blue"></span></div></div>
-                </div>
+                <div class="days-grid" id="days-grid">
+                    </div>
             </div>
+
             <div class="events-wrapper">
-                <div class="events-title"><i class="fa-solid fa-list-check"></i> 本月行事要項</div>
-                <div class="event-list">
-                    <div class="event-item type-admin">
-                        <span class="event-date">9/1 (週一)</span>
-                        <div class="event-content">
-                            <h4>第1週 陸續開課</h4>
-                            <p>班級代表推選。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-admin">
-                        <span class="event-date">9/1 - 9/19 (第1-3週)</span>
-                        <div class="event-content">
-                            <h4>受理加選、改選、退選</h4>
-                            <p>※ 報名費、製證費不退。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-admin">
-                        <span class="event-date">第3週</span>
-                        <div class="event-content">
-                            <h4>班代座談會</h4>
-                            <p>召開第1次班級代表座談會。</p>
-                            <p>※ 9/15-9/19內退選則退還七成。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-admin">
-                        <span class="event-date">9/20 (週六) 起</span>
-                        <div class="event-content">
-                            <h4>停止退費</h4>
-                            <p>第4週(含)起恕不受理退費、改選。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-holiday">
-                        <span class="event-date">9/27 - 9/29</span>
-                        <div class="event-content">
-                            <h4>教師節連假</h4>
-                            <p>連續假期停班、停課。</p>
-                        </div>
-                    </div>
+                <div class="events-title">
+                    <span><i class="fa-solid fa-list-check"></i> 行事要項</span>
+                    <span id="selected-date-label" class="current-selected-date">全月檢視</span>
                 </div>
+                <div class="event-list" id="event-list">
+                    </div>
             </div>
         </div>
-
-        <div id="oct" class="schedule-container">
-            <div class="calendar-wrapper">
-                <div class="calendar-title">2025年 10月</div>
-                <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
-                <div class="days-grid">
-                    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-                    <div class="day">1</div><div class="day">2</div><div class="day">3</div>
-                    <div class="day holiday-mode weekend">4<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode weekend">5<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode"><span class="week-tag">W6</span>6<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day">7</div><div class="day">8</div><div class="day">9</div>
-                    <div class="day holiday-mode weekend">10<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode weekend">11<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode weekend">12<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day"><span class="week-tag">W7</span>13</div>
-                    <div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day weekend">18</div>
-                    <div class="day weekend">19</div>
-                    <div class="day"><span class="week-tag">W8</span>20</div>
-                    <div class="day">21</div><div class="day">22</div><div class="day">23</div>
-                    <div class="day holiday-mode">24<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode weekend">25<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day holiday-mode weekend">26<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day citizen-mode"><span class="week-tag">W9</span>27<div class="event-dots"><span class="dot green"></span></div></div>
-                    <div class="day citizen-mode">28<div class="event-dots"><span class="dot green"></span></div></div>
-                    <div class="day citizen-mode">29<div class="event-dots"><span class="dot green"></span></div></div>
-                    <div class="day citizen-mode">30<div class="event-dots"><span class="dot green"></span></div></div>
-                    <div class="day citizen-mode">31<div class="event-dots"><span class="dot green"></span></div></div>
-                </div>
-            </div>
-            <div class="events-wrapper">
-                <div class="events-title"><i class="fa-solid fa-list-check"></i> 本月行事要項</div>
-                <div class="event-list">
-                    <div class="event-item type-admin">
-                        <span class="event-date">9/30 (前月)</span>
-                        <div class="event-content">
-                            <h4>課程大綱送件截止</h4>
-                            <p>課程發展暨師資審查會議。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-holiday">
-                        <span class="event-date">10/4 - 10/6</span>
-                        <div class="event-content">
-                            <h4>中秋節連假</h4>
-                            <p>連續假期停班、停課。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-holiday">
-                        <span class="event-date">10/10 - 10/12</span>
-                        <div class="event-content">
-                            <h4>國慶連假</h4>
-                            <p>連續假期停班、停課。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-holiday">
-                        <span class="event-date">10/24 - 10/26</span>
-                        <div class="event-content">
-                            <h4>光復連假</h4>
-                            <p>連續假期停班、停課。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-citizen">
-                        <span class="event-date">10/27 - 10/31 (第9週)</span>
-                        <div class="event-content">
-                            <h4>現代公民素養週</h4>
-                            <p>全校性講座活動，原課程停課參加。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="nov" class="schedule-container">
-            <div class="calendar-wrapper">
-                <div class="calendar-title">2025年 11月</div>
-                <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
-                <div class="days-grid">
-                    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-                    <div class="day weekend">1</div><div class="day weekend">2</div>
-                    <div class="day"><span class="week-tag">W10</span>3</div>
-                    <div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day weekend">8</div>
-                    <div class="day weekend">9</div>
-                    <div class="day"><span class="week-tag">W11</span>10<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">11<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">12<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">13<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">14<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day weekend">15</div><div class="day weekend">16</div>
-                    <div class="day"><span class="week-tag">W12</span>17</div>
-                    <div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day weekend">22</div>
-                    <div class="day weekend">23</div>
-                    <div class="day"><span class="week-tag">W13</span>24</div>
-                    <div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day weekend">29</div>
-                    <div class="day weekend">30</div>
-                </div>
-            </div>
-            <div class="events-wrapper">
-                <div class="events-title"><i class="fa-solid fa-list-check"></i> 本月行事要項</div>
-                <div class="event-list">
-                    <div class="event-item type-admin">
-                        <span class="event-date">第11週</span>
-                        <div class="event-content">
-                            <h4>教學評量與調查</h4>
-                            <p>1. 第11週學員學習問卷調查。</p>
-                            <p>2. 教師教學評量回饋。</p>
-                            <p>3. 課程期末成果展意願調查。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="dec" class="schedule-container">
-            <div class="calendar-wrapper">
-                <div class="calendar-title">2025年 12月</div>
-                <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
-                <div class="days-grid">
-                    <div class="day empty"></div>
-                    <div class="day"><span class="week-tag">W14</span>1<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day weekend">6</div>
-                    <div class="day weekend">7</div>
-                    <div class="day"><span class="week-tag">W15</span>8<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day weekend">13</div>
-                    <div class="day weekend">14</div>
-                    <div class="day"><span class="week-tag">W16</span>15</div>
-                    <div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day weekend">20</div>
-                    <div class="day weekend">21</div>
-                    <div class="day"><span class="week-tag">W17</span>22</div>
-                    <div class="day">23</div><div class="day">24</div>
-                    <div class="day holiday-mode">25<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day">26</div><div class="day weekend">27</div>
-                    <div class="day weekend">28</div>
-                    <div class="day"><span class="week-tag">W18</span>29</div>
-                    <div class="day">30</div><div class="day">31</div>
-                </div>
-            </div>
-            <div class="events-wrapper">
-                <div class="events-title"><i class="fa-solid fa-list-check"></i> 本月行事要項</div>
-                <div class="event-list">
-                    <div class="event-item type-admin">
-                        <span class="event-date">第14週</span>
-                        <div class="event-content">
-                            <h4>申請週</h4>
-                            <p>1. 研習證書、公教人員時數申請。</p>
-                            <p>2. 召開第2次班級代表座談會(暫定)。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-admin">
-                        <span class="event-date">第15週</span>
-                        <div class="event-content">
-                            <h4>班代優惠</h4>
-                            <p>核發班級代表優惠證明。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-holiday">
-                        <span class="event-date">12/25 (週四)</span>
-                        <div class="event-content">
-                            <h4>行憲紀念日</h4>
-                            <p>停班、停課。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="jan" class="schedule-container">
-            <div class="calendar-wrapper">
-                <div class="calendar-title">2026年 1月</div>
-                <div class="weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
-                <div class="days-grid">
-                    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-                    <div class="day holiday-mode">1<div class="event-dots"><span class="dot red"></span></div></div>
-                    <div class="day">2</div><div class="day weekend">3</div>
-                    <div class="day weekend">4</div>
-                    <div class="day"><span class="week-tag makeup">補</span>5<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">6<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">7<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">8<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">9<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day weekend">10<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day weekend">11</div>
-                    <div class="day"><span class="week-tag makeup">招</span>12<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">13<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">14<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">15<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day">16<div class="event-dots"><span class="dot blue"></span></div></div>
-                    <div class="day weekend">17</div>
-                </div>
-            </div>
-            <div class="events-wrapper">
-                <div class="events-title"><i class="fa-solid fa-list-check"></i> 本月行事要項</div>
-                <div class="event-list">
-                    <div class="event-item type-holiday">
-                        <span class="event-date">115/1/1 (週四)</span>
-                        <div class="event-content">
-                            <h4>元旦</h4>
-                            <p>停班、停課。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-admin">
-                        <span class="event-date">第18週 (或17週)</span>
-                        <div class="event-content">
-                            <h4>課程展示</h4>
-                            <p>新課程示範體驗(預排)。</p>
-                            <p>課程期末成果展(預排)。</p>
-                        </div>
-                    </div>
-                    <div class="event-item type-admin">
-                        <span class="event-date">補課週 / 招生期</span>
-                        <div class="event-content">
-                            <h4>期末行政</h4>
-                            <p>臺北市、新北市教師時數上傳。</p>
-                            <p>公務人員時數上傳。</p>
-                            <p>核發研習證明書。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </main>
 
     <footer id="footer">
         <div class="container">
             <div class="footer-link">
+                <a href="../curriculum/">課程總覽</a>
                 <a href="../calendar/">校園行事曆</a>
                 <a href="../reports/">校園週報</a>
                 <a href="../resources/">表單下載</a>
                 <a href="../support/">常見問答</a>
-                <a href="../curriculum/">課程總覽</a>
             </div>
             <div class="footer-info">
                 <div class="mt-4"><i class="me-3 fa-solid fa-location-dot"></i>100 臺北市中正區濟南路一段6號 (開南中學內)</div>

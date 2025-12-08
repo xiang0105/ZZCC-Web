@@ -172,7 +172,7 @@ main {
 /* 雙欄佈局容器 */
 .schedule-container {
   display: none; /* 預設隱藏，透過 JS 切換 */
-  grid-template-columns: 1.3fr 1fr; /* 左寬右窄 */
+  grid-template-columns: 0.9fr 1.2fr; /* 左寬右窄 */
   gap: 40px;
   animation: fadeIn 0.4s ease;
 }
@@ -196,15 +196,15 @@ main {
   background: #fff;
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
 }
 .calendar-title {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary-blue);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
@@ -226,13 +226,13 @@ main {
 .day {
   aspect-ratio: 1/1;
   border: 1px solid #f0f0f0;
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
-  padding: 4px;
+  padding: 2px;
   position: relative;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #444;
   background-color: #fff;
   transition: all 0.2s;
@@ -267,10 +267,10 @@ main {
 
 /* 週次標籤 (W1, W2...) */
 .week-tag {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   background-color: var(--primary-blue);
   color: #fff;
-  padding: 2px 5px;
+  padding: 1px 4px;
   border-radius: 4px;
   align-self: flex-start;
   margin-bottom: auto;
@@ -312,9 +312,11 @@ main {
   gap: 10px;
 }
 .event-list {
+  overflow: auto;
+  height: 70vh;
   border-left: 2px solid #eee;
   margin-left: 8px;
-  padding-left: 20px;
+  padding-left: 35px;
 }
 
 .event-item {
@@ -389,6 +391,69 @@ main {
 .highlight {
   font-weight: bold;
   color: var(--primary-blue);
+}
+
+/* --- 新增/修改的互動樣式 --- */
+
+/* 讓日期格子變成可點擊的樣子 */
+.day {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* 滑鼠移過去的效果 */
+.day:hover {
+    border-color: var(--accent-blue);
+    background-color: #f0f7ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 被選中的日期 (Active State) */
+.day.selected {
+    background-color: var(--primary-blue);
+    color: #fff;
+    border-color: var(--primary-blue);
+    box-shadow: 0 4px 12px rgba(15, 76, 129, 0.4);
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+/* 被選中時，裡面的週次標籤和圓點要變色以適應深色背景 */
+.day.selected .week-tag {
+    background-color: rgba(255,255,255,0.3);
+    color: #fff;
+}
+.day.selected .day-number {
+    color: #fff;
+}
+/* 讓空格子不能點 */
+.day.empty {
+    pointer-events: none;
+    cursor: default;
+}
+
+/* 右側清單的動畫優化 */
+.events-wrapper {
+    transition: opacity 0.3s;
+}
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 顯示目前選取的日期標題 */
+.current-selected-date {
+    font-size: 0.9rem;
+    color: var(--accent-blue);
+    font-weight: 700;
+    margin-left: 10px;
+    background: #eef4f9;
+    padding: 2px 8px;
+    border-radius: 4px;
 }
 
 /* --- Footer (頁尾) --- */
