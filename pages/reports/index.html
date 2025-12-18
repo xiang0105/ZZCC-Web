@@ -11,21 +11,21 @@
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="container">
-            <div class="logo">中正社區大學</div>
-            <nav>
-                <div class="dropdown">
-                    <button class="nav-btn-accent dropdown-toggle" id="formDropdownToggle" title="點擊開啟教師與學員常用表格下載選單" aria-expanded="false">
-                        表格下載 
-                        <i class="fas fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-menu" id="formDropdownMenu">
-                        </div>
-                </div>
-            </nav>
+    <nav class="custom-navbar fixed-top">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <!-- 左側 logo -->
+            <div class="nav-left d-flex align-items-center">
+                <a class="brand" href="../index.html">
+                    <img src="../../images/logo.png" alt="中正社大" class="brand-logo">
+                </a>
+            </div>
+
+            <!-- 右側按鈕 -->
+            <div class="nav-right">
+                <a href="../../index.html" class="btn-signup">回首頁</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <main>
         <section class="hero-section">
@@ -67,11 +67,23 @@
         </section>
     </main>
 
-    <footer class="footer">
+    <footer id="footer">
         <div class="container">
-            <p>臺北市中正社區大學 ‧ 100 臺北市中正區濟南路一段六號</p>
-            <p>服務專線：(02)2327-8441 | 中正社大資訊組 編製</p>
-            <p>&copy; 2025 中正社區大學版權所有</p>
+            <div class="footer-link">
+                <a href="../curriculum/">課程總覽</a>
+                <a href="../calendar/">校園行事曆</a>
+                <a href="../reports/">校園週報</a>
+                <a href="../resources/">表單下載</a>
+                <a href="../support/">常見問答</a>
+                <a href="https://www.facebook.com/zzcc.since.20030225/?locale=zh_TW">粉絲專頁</a>
+            </div>
+            <div class="footer-info">
+                <div class="mt-4"><i class="me-3 fa-solid fa-location-dot"></i>100 臺北市中正區濟南路一段6號 (開南中學內)</div>
+                <div class="mt-4"><i class="me-3 fa-solid fa-phone"></i>(02) 2327-8441</div>
+                <div class="mt-4"><i class="me-3 fa-solid fa-envelope"></i>cccc@knvs.tp.edu.tw</div>
+                <div class="mt-4"><i class="me-3 fa-solid fa-clock"></i>週一至週五 10:00 - 20:00
+            </div>
+            <div class="Copyright mt-4">Copyright &copy; 2025 Community College. All Rights Reserved. 中正社區大學 版權所有 翻印必究</div>
         </div>
     </footer>
 

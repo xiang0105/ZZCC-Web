@@ -40,38 +40,33 @@ header {
     position: sticky; top: 0; z-index: 1000; 
 }
 .nav-wrapper { display: flex; justify-content: space-between; align-items: stretch; height: 70px; }
-        
-.logo { 
-    font-size: 22px; font-weight: bold; color: var(--main-navy); 
-    display: flex; align-items: center; gap: 10px; 
+
+/* 右側按鈕區域 */
+.btn-signup {
+  background-color: #0d2c5e; /* 深藍色主色 */
+  color: #ffffff;
+  padding: 10px 25px;
+  border-radius: 50px; /* 膠囊狀圓角 */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
-/* Logo hover 效果，提示可點擊 */
-.logo:hover { opacity: 0.8; }
-.nav-links { display: flex; height: 100%; }
-.nav-links a { 
-    display: flex; align-items: center; padding: 0 20px;
-    font-weight: 500; color: var(--text-dark);
-    border-left: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-bottom: 4px solid transparent;
-    white-space: nowrap;
+
+.btn-signup:hover {
+  background-color: #1a4f9c; /* 滑鼠移過去變亮一點 */
+  transform: translateY(-2px); /* 微微浮起 */
+  box-shadow: 0 4px 10px rgba(13, 44, 94, 0.3);
 }
-.nav-links a:hover { 
-    background-color: var(--bg-light-gray); 
-    color: var(--bright-cyan);
+
+@media (max-width: 768px) {
+
+    .brand{
+        margin-left: 10px;
+    }
 }
-/* 首頁連結特別樣式 - 改為黃色按鈕風格 */
-.nav-home {
-    background-color: var(--accent-yellow);
-    color: var(--main-navy) !important;
-    font-weight: bold;
-    border-bottom: none !important;
-}
-.nav-home:hover { 
-    background-color: #ffeb39;
-    color: var(--main-navy) !important;
-    opacity: 0.9;
-}
+
 /* --- Hero --- */
 .hero {
     background: linear-gradient(135deg, rgba(0, 59, 115, 0.75), rgba(0, 160, 233, 0.65)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
@@ -183,6 +178,13 @@ header {
 .nav-right-group {
     display: flex; align-items: center;
 }
+
+@media (max-width: 768px) {
+    .nav-right-group{
+        display: none;
+    }
+}
+
 /* --- Section Styles --- */
 .faq-section { padding: 40px 0 60px 0; scroll-margin-top: 140px; }
         
@@ -269,80 +271,40 @@ header {
 }
 #insurance .section-title { border-left-color: var(--accent-yellow); }
         
-/* --- Footer --- */
-footer {
-    background-color: var(--main-navy);
-    color: var(--white);
-    padding: 60px 0 20px 0;
-    margin-top: 80px;
-    font-size: 0.95rem;
-    position: relative;
-}
+#footer{
+    background-color: #1f2d40;
+    color: #fff;
+    padding: 2rem 0;
+    /* text-align: center; */
+
+    .footer-link{
+        padding: 1rem 0;
+        display: flex;
+        /* flex-direction: column; */
+        gap: 1rem;
+    }
+
+    a{
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+
+    
+    @media (max-width : 768px) {
         
-.footer-wrapper {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 40px;
-    margin-bottom: 20px;
-}
-/* Footer Left: Logo & About */
-.footer-about {
-    flex: 1;
-    min-width: 300px;
-}
-.footer-logo {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: var(--white);
-    margin-bottom: 20px;
-    display: flex; align-items: center; gap: 10px;
-}
-.footer-logo i { color: var(--accent-yellow); font-size: 1.8rem; }
-.footer-about p {
-    margin-bottom: 15px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.6;
-}
-.social-icon {
-    display: inline-flex; justify-content: center; align-items: center;
-    width: 40px; height: 40px;
-    background: var(--white);
-    color: var(--main-navy);
-    border-radius: 50%;
-    font-size: 1.2rem;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-.social-icon:hover { background: var(--accent-yellow); }
-/* Footer Right: Contact Info */
-.footer-contact {
-    flex: 1;
-    min-width: 300px;
-}
-.footer-contact h3 {
-    color: var(--accent-yellow);
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-}
-.footer-contact ul { padding: 0; }
-.footer-contact li {
-    margin-bottom: 15px;
-    display: flex; align-items: flex-start; gap: 15px;
-    color: rgba(255,255,255,0.9);
-}
-.footer-contact li i {
-    color: var(--accent-yellow);
-    margin-top: 5px;
-    width: 20px; text-align: center;
-}
-/* Footer Bottom: Copyright */
-.footer-copyright {
-    text-align: center;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.85rem;
+        .footer-link{
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+    }
 }
 /* [NEW] Floating Home Button (Bottom Right) */
 .floating-home-btn {

@@ -13,9 +13,11 @@
 
     <header>
         <div class="container nav-wrapper">
-            <a href="../../index.html" class="logo">
-                臺北市中正社區大學
-            </a>
+            <div class="nav-left d-flex align-items-center">
+                <a class="brand" href="../index.html">
+                    <img src="../../images/logo.png" alt="中正社大" class="brand-logo">
+                </a>
+            </div>
             
             <div class="nav-right-group">
                 <!-- Compact Search (Appears on scroll) -->
@@ -33,9 +35,9 @@
                     <button class="font-btn-header" onclick="setFontSize('xlarge')" id="h-btn-xlarge">特大</button>
                 </div>
 
-                <nav class="nav-links">
-                    <a href="../../index.html" class="nav-home"><i class="fas fa-home" style="margin-right: 5px;"></i> 回首頁</a>
-                </nav>
+                <div class="nav-right">
+                    <a href="../../index.html" class="btn-signup">回首頁</a>
+                </div>
             </div>
         </div>
     </header>
@@ -397,36 +399,24 @@
 
     </div>
 
-    <footer>
+    <footer id="footer">
         <div class="container">
-            <div class="footer-wrapper">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <i class="fas fa-graduation-cap"></i> 臺北市中正社區大學
-                    </div>
-                    <p>深耕中正，終身學習。</p>
-                    <p>我們致力於提供多元的學習機會，連結社區資源，打造優質的公民學習場域。</p>
-                    <a href="https://www.facebook.com/zzcc.since.20030225" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                </div>
-
-                <div class="footer-contact">
-                    <h3>聯絡我們</h3>
-                    <ul>
-                        <li><i class="fas fa-phone-alt"></i> 02-2327-8441</li>
-                        <li><i class="fas fa-fax"></i> 02-2327-8912</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 100 臺北市中正區濟南路一段六號</li>
-                        <li><i class="far fa-clock"></i> 週一至週五 14:00 - 21:00</li>
-                    </ul>
-                </div>
+            <div class="footer-link">
+                <a href="../curriculum/">課程總覽</a>
+                <a href="../calendar/">校園行事曆</a>
+                <a href="../reports/">校園週報</a>
+                <a href="../resources/">表單下載</a>
+                <a href="../support/">常見問答</a>
+                <a href="https://www.facebook.com/zzcc.since.20030225/?locale=zh_TW">粉絲專頁</a>
             </div>
-            <div class="footer-copyright">
-                © 2025 Zhongzheng Community College. All Rights Reserved.
+            <div class="footer-info">
+                <div class="mt-4"><i class="me-3 fa-solid fa-location-dot"></i>100 臺北市中正區濟南路一段6號 (開南中學內)</div>
+                <div class="mt-4"><i class="me-3 fa-solid fa-phone"></i>(02) 2327-8441</div>
+                <div class="mt-4"><i class="me-3 fa-solid fa-envelope"></i>cccc@knvs.tp.edu.tw</div>
+                <div class="mt-4"><i class="me-3 fa-solid fa-clock"></i>週一至週五 10:00 - 20:00
             </div>
+            <div class="Copyright mt-4">Copyright &copy; 2025 Community College. All Rights Reserved. 中正社區大學 版權所有 翻印必究</div>
         </div>
-        
-        <a href="../../index.html" class="floating-home-btn" title="回首頁">
-            <i class="fas fa-home"></i>
-        </a>
     </footer>
 
     

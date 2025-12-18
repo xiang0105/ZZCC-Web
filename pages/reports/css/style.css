@@ -31,6 +31,13 @@ body {
     padding: 0 20px;
 }
 
+@media (max-width: 768px) {
+
+    .container {
+        padding-top: 35px;
+    }
+}
+
 a {
     text-decoration: none;
     color: var(--color-primary-blue);
@@ -40,52 +47,64 @@ a:hover {
     color: var(--color-primary-blue);
 }
 
-/* ========================================= */
-/* --- 導覽列 (Navbar) 與固定按鈕 --- */
-/* ========================================= */
-.navbar {
-    background-color: var(--color-primary-blue);
-    padding: 15px 0;
-    color: white;
-    transition: box-shadow 0.3s ease;
+/* =========================================
+2. 導覽列 (Navbar)
+========================================= */
+.custom-navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 15px 0;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.custom-navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
+/* Logo 區域 */
+.brand-logo {
+  height: 50px; /* Logo 高度設定 */
+  width: auto;
+  display: block;
 }
 
-.navbar nav a {
-    color: white;
-    margin-left: 20px;
+/* 右側按鈕區域 */
+.btn-signup {
+  background-color: #0d2c5e; /* 深藍色主色 */
+  color: #ffffff;
+  padding: 10px 25px;
+  border-radius: 50px; /* 膠囊狀圓角 */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-.navbar nav a:hover {
-    opacity: 0.8;
+.btn-signup:hover {
+  background-color: #1a4f9c; /* 滑鼠移過去變亮一點 */
+  transform: translateY(-2px); /* 微微浮起 */
+  box-shadow: 0 4px 10px rgba(13, 44, 94, 0.3);
 }
 
-.nav-btn-accent {
-    background-color: var(--color-accent-yellow);
-    color: var(--color-text-dark) !important;
-    padding: 8px 15px;
-    border-radius: 6px;
-    font-weight: 700;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-}
-.nav-btn-accent:hover {
-    background-color: #ffda6a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.nav-btn-accent:active {
-    transform: scale(0.98);
+@media (max-width: 768px) {
+
+      .brand{
+        margin-left: 40px;
+      }
+
+      .nav-right{
+        display: none;
+      }
 }
 
 /* 固定動作按鈕 (Home Button) */
@@ -108,23 +127,6 @@ a:hover {
     font-weight: 700; 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-.fixed-action-btn .home-icon {
-    font-size: 1.3rem; 
-    margin-right: 8px; 
-}
-
-.fixed-action-btn:hover {
-    background-color: #ffda6a; 
-    transform: translateY(-3px) scale(1.05); 
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-.fixed-action-btn:active {
-    transform: scale(0.95); 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s ease-out;
 }
 
 /* ========================================= */
@@ -357,19 +359,40 @@ a:hover {
     transform: rotate(5deg); 
 }
 
-/* ========================================= */
-/* --- 頁尾 (Footer) --- */
-/* ========================================= */
-.footer {
-    background-color: var(--color-text-dark);
-    color: #bbb;
-    padding: 20px 0;
-    font-size: 0.9rem;
-    text-align: center;
-}
+#footer{
+    background-color: #1f2d40;
+    color: #fff;
+    padding: 2rem 0;
+    /* text-align: center; */
 
-.footer p {
-    margin: 5px 0;
+    .footer-link{
+        padding: 1rem 0;
+        display: flex;
+        /* flex-direction: column; */
+        gap: 1rem;
+    }
+
+    a{
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+
+    
+    @media (max-width : 768px) {
+        
+        .footer-link{
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+    }
 }
 
 

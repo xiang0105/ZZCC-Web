@@ -34,67 +34,64 @@ ul {
     list-style: none;
 }
 
-/* --- 導覽列 (Header) --- */
-header {
-    background-color: #fff;
-    padding: 15px 40px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+/* =========================================
+2. 導覽列 (Navbar)
+========================================= */
+.custom-navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 15px 0;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-/* 模擬 Logo 區域 */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: var(--primary-blue);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-}
-        
-/* 簡單用 CSS 畫一個類似書本/房子的圖標 (因為沒有原始圖檔) */
-.logo-icon {
-    font-size: 2rem;
+.custom-navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
+/* Logo 區域 */
+.brand-logo {
+  height: 50px; /* Logo 高度設定 */
+  width: auto;
+  display: block;
 }
 
-.logo-text span {
-    font-size: 1.5rem;
+/* 右側按鈕區域 */
+.btn-signup {
+  background-color: #0d2c5e; /* 深藍色主色 */
+  color: #ffffff;
+  padding: 10px 25px;
+  border-radius: 50px; /* 膠囊狀圓角 */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-.logo-text small {
-    font-size: 0.5rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+.btn-signup:hover {
+  background-color: #1a4f9c; /* 滑鼠移過去變亮一點 */
+  transform: translateY(-2px); /* 微微浮起 */
+  box-shadow: 0 4px 10px rgba(13, 44, 94, 0.3);
 }
 
-/* 右側按鈕 */
-.cta-btn {
-    background-color: var(--accent-blue);
-    color: white;
-    padding: 10px 25px;
-    border-radius: 50px; /* 圓角膠囊狀 */
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1rem;
-}
+@media (max-width: 768px) {
 
-.cta-btn:hover {
-    background-color: var(--hover-blue);
+      .brand{
+        margin-left: 40px;
+      }
+
+      .nav-right{
+        display: none;
+      }
 }
 
 /* --- 主要內容區 (Main) --- */
