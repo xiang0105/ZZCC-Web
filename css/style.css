@@ -93,6 +93,7 @@ nav{
     .main-heading{
         font-size: 10vh;
         font-weight: bolder;
+        z-index:9999;
     }
 
     .container{
