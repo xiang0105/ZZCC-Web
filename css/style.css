@@ -94,6 +94,7 @@ nav{
         font-size: 10vh;
         font-weight: bolder;
         z-index:9999;
+        margin-bottom:10vh;
     }
 
     .container{
