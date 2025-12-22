@@ -88,7 +88,7 @@ var courses_list = [
   },
   {
     content: "【情緒不再失控！社會情緒學習(SEL)工作坊開課啦！】",
-    link: "./images/course/sel工作坊.png",
+    link: "./images/course/sel工作坊 .png",
   },
   {
     content: "【114-2期婦女學習系列課程 開跑囉~】",
