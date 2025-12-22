@@ -103,6 +103,7 @@ nav{
     }
 
     .background-box{
+        display:block;
         background-color: #1f4f86;
         height: 50vh;
         width: 100%;
